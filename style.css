@@ -1,12 +1,18 @@
+@import url('https://fonts.cdnfonts.com/css/hakuno');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "Noto Sans", serif;
 }
 
 body{
     font-family: 'Courier New', Courier, monospace;
 }
+
+
 
 .card{
     width: 100%;
@@ -18,5 +24,11 @@ body{
     justify-content: center;
     position: sticky;
     top: 0;
+}
+
+.font-fam{
+    font-family: 'hakuno', sans-serif;
+    font-size: 38px;
+    
 }
 
