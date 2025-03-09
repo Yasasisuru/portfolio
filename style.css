@@ -51,7 +51,7 @@ body {
 }
 
 #card1 .card-body {
-	background-color: rgb(5, 102, 141);
+	background-color: #0a192f;
 }
 #card2 .card-body {
 	/* background-color: #7EC4CF; */
@@ -70,7 +70,7 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	transition: all 0.5s;
+	transition: all 1.5s;
 }
 
 
@@ -80,7 +80,7 @@ body {
 
 .font-fam {
     font-family: 'hakuno', sans-serif;
-    font-size: 38px;
+    font-size: 40px;
 
 }
 
@@ -108,7 +108,6 @@ body {
 .social-btn {
     width: 50px;
     height: 50px;
-    background: #333;
     color: white;
     display: flex;
     justify-content: center;
@@ -133,4 +132,9 @@ body {
 
 .social-btn:hover {
     transform: scale(1.1);
+
+   opacity: 0.8;
+    
 }
+
+
