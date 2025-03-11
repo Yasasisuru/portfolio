@@ -14,3 +14,40 @@ document.querySelectorAll('.nav-link').forEach(link => {
         }
     });
 });
+
+
+
+
+/***************************************************************************************** */
+
+var typed = new Typed(".text", {
+    strings: ["Front-End Developer", "Fullstack Developer", "Flutter UI Developer"],
+    typeSpeed: 100,
+    backSpeed: 100,
+    backDelay: 1200,
+    loop: true
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,4 +1,4 @@
-@import url('https://fonts.cdnfonts.com/css/hakuno');
+
 @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
 * {
@@ -14,7 +14,7 @@ body {
 
 :root {
 	--cards: 4;
-	--cardHeight: 100vh;
+	--cardHeight: 110vh;
 	--cardTopPadding:0;
 	--cardMargin: 0;
 }
@@ -55,10 +55,10 @@ body {
 }
 #card2 .card-body {
 	/* background-color: #7EC4CF; */
-	background-color: rgb(2, 128, 144);
+	background-color: rgb(220, 220, 220);
 }
 #card3 .card-body {
-	background-color: rgb(0, 168, 150);
+	background-color: rgb(48, 143, 143);
 }
 #card4 .card-body {
 	background-color:rgb(2, 195, 154);
@@ -66,7 +66,7 @@ body {
 
 .card-body {
 	
-	padding: 30px;
+	
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -79,7 +79,6 @@ body {
 
 
 .font-fam {
-    font-family: 'hakuno', sans-serif;
     font-size: 40px;
 
 }
@@ -95,46 +94,44 @@ body {
 
 }
 
-.social-buttons {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    z-index: 1000;
+
+
+.home-content{
+    padding: 100px;
 }
 
-.social-btn {
-    width: 50px;
-    height: 50px;
-    color: white;
-    display: flex;
+.profile-container {
+    margin-top: -80px;
+    padding: 30px;
+    border-radius: 50%;
+    background-image: url('assets/profile.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; 
+    width: 400px;
+    height: 400px;
+}
+
+
+.media a{
+    display: inline-flex;
     justify-content: center;
     align-items: center;
-    font-size: 24px;
-    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    border: 1.8px solid #0ef;
     text-decoration: none;
-    transition: 0.3s;
+    border-radius: 50%;
+    margin: 30px 15px 30px 0;
 }
 
-.linkedin {
-    background: #0077b5;
+.media a:hover{
+background-color: #0ef;
+color: black;
+box-shadow: 0 0 18px #0ef;
 }
 
-.github {
-    background: #24292e;
+.text{
+    color: #0ef;
+    font-weight: 400;
 }
-
-.twitter {
-    background: #24292e;
-}
-
-.social-btn:hover {
-    transform: scale(1.1);
-
-   opacity: 0.8;
-    
-}
-
-
