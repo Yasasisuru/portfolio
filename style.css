@@ -65,7 +65,7 @@ body {
     0% {
       opacity: 0;
       transform: translateX(-100%);
-      text-shadow: -2px 3px 0 red, 2px -3px 0 blue;
+      text-shadow: -2px 3px 0 red, 2px -3px 0 rgb(24, 24, 223);
     };
     60% {
       opacity: 0.5;
