@@ -105,7 +105,7 @@ body {
    
 }
 /******************************* skill and certificats***************************************************/
-/* Ensure section takes full height but allows scrolling if needed */
+
 .badge-section {
   height: 50vh;
   display: flex;
@@ -118,8 +118,11 @@ body {
   text-align: center;
 }
 .badge-card img {
-  max-width: 100px;
+  max-width: 100%;
   height: auto;
+}
+.sizes{
+  width: 100%;
 }
 
 /******************************* latest projects**************************************************/
@@ -177,6 +180,24 @@ body {
   color: #fff;
   background-color: #00bcd4;
   border-radius: 8px;
+}
+
+/******************* skills and certificates  *************************************/
+.certifications {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.certifications img {
+  width: 100%;
+  height: auto;
+}
+
+.certifications .cert-name {
+  text-align: center;
+  margin-top: 5px;
+  font-weight: bold;
 }
 
 /******************************** contact me section *************************************************/
@@ -411,8 +432,19 @@ border-radius: 20px;
   border: 2px solid #00bcd4;
   border-radius: 12px;
   transition: transform 0.3s ease;
-  width: 60%;
+  width: 65%;
 }
+
+.certificate-section {
+  height: 50vh;
+}
+
+
+.sizes{
+  width: 50%;
+}
+
+
 
 
 /***************/
