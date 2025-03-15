@@ -105,6 +105,49 @@ body {
    
 }
 
+/*********************************************************************************/
+.form-container {
+  background: transparent;
+  padding: 20px;
+
+}
+.form-container .input-group-text {
+  background-color: transparent;
+  color: #0ef;
+  border: 2px solid #0ef;
+  background-color: #0ef;
+  width: 50px;
+}
+.form-control {
+  background: transparent;
+  color: #0ef;
+  border: 2px solid #0ef;
+}
+.form-control::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+.btn-submit {
+  width: 100%;
+  background-color: transparent;
+  color: white;
+  border: 2px solid #0ef
+}
+.btn-submit:hover {
+  background-color: #0ef;
+  box-shadow: 0 0 18px #0ef;
+  color: black;
+
+}
+
+.contact-me{
+  color: white;
+  font-size: 50px;
+  font-weight: 400;
+  
+}
+
+/**************************************************************************/
+
 
 
 #preloader {

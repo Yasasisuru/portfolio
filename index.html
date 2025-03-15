@@ -90,17 +90,29 @@
 <!-- Contact Section -->
 <section id="contact" class="d-flex align-items-center justify-content-center vh-100 w-100">
     <div class="container row mx-auto">
-        <div class="col-md-6 p-4">
-            <h2>Contact Me</h2>
-            <p>Feel free to reach out via LinkedIn or GitHub.</p>
+        <div class="col-md-4 p-2">
+            <h2 class="contact-me">Contact <span class="me">Me</span></h2>
+           
         </div>
-        <div class="col-md-6 d-flex justify-content-center align-items-center">
-            <form>
-                <input type="text" placeholder="Your Name" class="form-control mb-3">
-                <input type="email" placeholder="Your Email" class="form-control mb-3">
-                <textarea placeholder="Your Message" class="form-control mb-3"></textarea>
-                <button type="submit" class="btn btn-dark">Send</button>
-            </form>
+        <div class="col-md-8   d-flex justify-content-center align-items-center">
+            <div class="form-container text-center">
+
+                <form>
+                    <div class="mb-3 input-group">
+                        <span class="input-group-text"><i class="bi bi-person"></i></span>
+                        <input type="text" class="form-control" placeholder="Full Name" required>
+                    </div>
+                    <div class="mb-3 input-group">
+                        <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                        <input type="email" class="form-control" placeholder="Email" required>
+                    </div>
+                    <div class="mb-3 input-group">
+                        <span class="input-group-text"><i class="bi bi-chat-dots"></i></span>
+                        <textarea class="form-control" placeholder="Message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-submit">Submit</button>
+                </form>
+            </div>
         </div>
     </div>
 </section>
