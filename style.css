@@ -215,7 +215,8 @@ body {
   font-size: 10px;
 }
 .bar {
-  background-color: #ccc;
+  background-color:transparent;
+  border: 1px solid #fff ;
   border-radius: 5px;
   height: 20px;
   overflow: hidden;
@@ -231,7 +232,7 @@ body {
 .php { background-color: #0ef; width: 23.24%; } /* Blue */
 .html { background-color:  #0ef; width: 22.73%; } /* Orange */
 .cpp { background-color:  #0ef; width: 13.99%; } /* Pink */
-.htcake { background-color:  #0ef; width: 11.11%; }
+.htcake { background-color:  #0ef; width: 8.61%; }
 
 /******************************** contact me section *************************************************/
 .form-container {
@@ -406,7 +407,7 @@ border-radius: 20px;
 }
 
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 800px) {
    
     .profile-container {
       
