@@ -407,7 +407,7 @@ border-radius: 20px;
 }
 
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 650px) {
    
     .profile-container {
       
