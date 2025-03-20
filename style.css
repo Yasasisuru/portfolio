@@ -407,6 +407,8 @@ border-radius: 20px;
 }
 
 
+
+
 @media only screen and (max-width: 650px) {
    
     .profile-container {
@@ -465,7 +467,7 @@ border-radius: 20px;
 
 .project-card img {
   
-  height: 50%;
+  height: 40%;
 }
 
 .project-card {
