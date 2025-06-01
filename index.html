@@ -488,7 +488,7 @@
           </p>
           <nav class="social-buttons" aria-label="Additional Social Links">
             <a
-              href="https://credly.com"
+              href="https://www.credly.com/users/isuru-mirihagoda"
               class="btn"
               target="_blank"
               rel="noopener"
@@ -513,7 +513,7 @@
               </svg>
             </a>
             <a
-              href="https://medium.com"
+              href="https://medium.com/@isurumirihagoda"
               class="btn"
               target="_blank"
               rel="noopener"
@@ -534,7 +534,7 @@
               </svg>
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/yasas-isuru/"
               class="btn"
               target="_blank"
               rel="noopener"
@@ -548,7 +548,7 @@
               </svg>
             </a>
             <a
-              href="https://github.com"
+              href="https://github.com/Yasasisuru"
               class="btn"
               target="_blank"
               rel="noopener"
@@ -562,7 +562,7 @@
               </svg>
             </a>
             <a
-              href="https://twitter.com"
+              href="https://twitter.com/yasas_isuru_"
               class="btn"
               target="_blank"
               rel="noopener"
@@ -574,6 +574,19 @@
                   d="M22.46 6c-.77.35-1.6.59-2.46.7a4.27 4.27 0 0 0 1.87-2.36c-.83.5-1.76.85-2.74 1.05A4.21 4.21 0 0 0 16.07 4c-2.36 0-4.28 1.92-4.28 4.28 0 .34.04.67.11.99-3.56-.18-6.72-1.88-8.83-4.46-.37.63-.59 1.36-.59 2.15 0 1.48.75 2.8 1.88 3.57a4.25 4.25 0 0 1-1.94-.54v.05c0 2.07 1.48 3.8 3.45 4.19a4.33 4.33 0 0 1-1.93.07 4.28 4.28 0 0 0 3.99 2.97A8.47 8.47 0 0 1 2 18.43a11.94 11.94 0 0 0 6.29 1.84c7.55 0 11.68-6.25 11.68-11.68 0-.18-.01-.36-.02-.54A8.35 8.35 0 0 0 22.46 6z"
                 />
               </svg>
+            </a>
+            <a
+              href="https://reddit.com/u/yasas_isuru"
+              class="btn"
+              target="_blank"
+              rel="noopener"
+              aria-label="Reddit"
+              title="Reddit"
+            >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-reddit" viewBox="0 0 16 16">
+  <path d="M6.167 8a.83.83 0 0 0-.83.83c0 .459.372.84.83.831a.831.831 0 0 0 0-1.661m1.843 3.647c.315 0 1.403-.038 1.976-.611a.23.23 0 0 0 0-.306.213.213 0 0 0-.306 0c-.353.363-1.126.487-1.67.487-.545 0-1.308-.124-1.671-.487a.213.213 0 0 0-.306 0 .213.213 0 0 0 0 .306c.564.563 1.652.61 1.977.61zm.992-2.807c0 .458.373.83.831.83s.83-.381.83-.83a.831.831 0 0 0-1.66 0z"/>
+  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.828-1.165c-.315 0-.602.124-.812.325-.801-.573-1.9-.945-3.121-.993l.534-2.501 1.738.372a.83.83 0 1 0 .83-.869.83.83 0 0 0-.744.468l-1.938-.41a.2.2 0 0 0-.153.028.2.2 0 0 0-.086.134l-.592 2.788c-1.24.038-2.358.41-3.17.992-.21-.2-.496-.324-.81-.324a1.163 1.163 0 0 0-.478 2.224q-.03.17-.029.353c0 1.795 2.091 3.256 4.669 3.256s4.668-1.451 4.668-3.256c0-.114-.01-.238-.029-.353.401-.181.688-.592.688-1.069 0-.65-.525-1.165-1.165-1.165"/>
+</svg>
             </a>
           </nav>
         </div>
@@ -707,15 +720,17 @@
       <div class="overlay"></div>
       <div class="content">
         <h2>Contact Me</h2>
-        <form>
-          <input type="text" placeholder="Name" aria-label="Name" required />
-          <input type="email" placeholder="Email" aria-label="Email" required />
+        <form action="https://api.web3forms.com/submit" method="POST">
+           <input type="hidden" name="access_key" value="ac04f87c-3523-4899-8ec6-a3e1764b38ed">
+          <input type="text" placeholder="Name" name="name" aria-label="Name" required />
+          <input type="email" placeholder="Email" name="email" aria-label="Email" required />
           <textarea
-            placeholder="Message"
+            placeholder="Message" name="message"
             aria-label="Message"
             rows="5"
             required
           ></textarea>
+            <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
           <button type="submit" aria-label="Send Message">Send</button>
         </form>
       </div>
