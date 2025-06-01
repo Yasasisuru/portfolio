@@ -3,11 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MIRIGAGODA</title>
+     <link rel="icon" type="image/x-icon" href="img/1744600873392.ico">
+    <title>Mirihagoda</title>
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
     <style>
       :root {
-        --black: #000;
+        --black: #252424;
         --white: #fff;
         --dark-yellow: #c89f00;
         --dot-size: 4px;
@@ -48,6 +49,11 @@
       }
 
       #about {
+        background: url("https://static.vecteezy.com/system/resources/previews/006/944/328/non_2x/abstract-dark-hexagonal-background-free-vector.jpg")
+          no-repeat center center;
+      }
+
+      #experience {
         background: url("https://static.vecteezy.com/system/resources/previews/006/944/328/non_2x/abstract-dark-hexagonal-background-free-vector.jpg")
           no-repeat center center;
       }
@@ -294,7 +300,7 @@
       }
 
       .card {
-        background: #111;
+        background: #303030;
         padding: 1rem;
         border-radius: 0.5rem;
         border-left: 4px solid var(--dark-yellow);
@@ -394,19 +400,19 @@
         }
       }
 
-      #contact.come-in {
+      #contact.come-in,
+      #experience.come-in {
         animation: comeIn 1s ease-out forwards;
       }
 
-      #contact.go-out {
+      #contact.go-out,
+      #experience.go-out {
         animation: goOut 1s ease-out forwards;
       }
 
-      #contact {
-        background-color: #fff;
-        transition: opacity 0.3s ease, transform 0.3s ease;
-      }
-      #projects {
+      #contact,
+      #projects,
+      #experience {
         background-color: #fff;
         transition: opacity 0.3s ease, transform 0.3s ease;
       }
@@ -417,12 +423,42 @@
         display: inline-block;
         min-width: 200px;
       }
-      .cover img{
+
+      .cover img {
         width: 200px;
         height: 400px;
-      
-        
+      }
 
+      .experience-item {
+        background: #111;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        border-left: 4px solid var(--dark-yellow);
+        margin-bottom: 1rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+      }
+
+      .experience-item:hover {
+        transform: translateY(-7px);
+        box-shadow: 0 10px 20px rgba(200, 159, 0, 0.7);
+      }
+
+      .experience-item h3 {
+        color: var(--dark-yellow);
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .experience-item p {
+        font-size: 1rem;
+        color: #ddd;
+        margin-bottom: 0.5rem;
+      }
+
+      .experience-item .duration {
+        font-size: 0.9rem;
+        color: #aaa;
       }
     </style>
   </head>
@@ -472,6 +508,16 @@
       </div>
       <div
         class="dot-wrapper"
+        data-section="experience"
+        tabindex="0"
+        role="button"
+        aria-label="Experience section"
+      >
+        <span class="label">Experience</span>
+        <div class="dot"></div>
+      </div>
+      <div
+        class="dot-wrapper"
         data-section="contact"
         tabindex="0"
         role="button"
@@ -488,7 +534,7 @@
       <div class="content two-column">
         <div class="text">
           <h1>Isuru Mirihagoda</h1>
-          <h4>I'm a <span class="typed-text"></span></h4>
+          <h4 style="color: white;">I'm a <span class="typed-text"></span></h4>
           <p>
             Fourth-year IT student at the University of Vavuniya, passionate
             about web development and technology.
@@ -590,16 +636,27 @@
               aria-label="Reddit"
               title="Reddit"
             >
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-reddit" viewBox="0 0 16 16">
-  <path d="M6.167 8a.83.83 0 0 0-.83.83c0 .459.372.84.83.831a.831.831 0 0 0 0-1.661m1.843 3.647c.315 0 1.403-.038 1.976-.611a.23.23 0 0 0 0-.306.213.213 0 0 0-.306 0c-.353.363-1.126.487-1.67.487-.545 0-1.308-.124-1.671-.487a.213.213 0 0 0-.306 0 .213.213 0 0 0 0 .306c.564.563 1.652.61 1.977.61zm.992-2.807c0 .458.373.83.831.83s.83-.381.83-.83a.831.831 0 0 0-1.66 0z"/>
-  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.828-1.165c-.315 0-.602.124-.812.325-.801-.573-1.9-.945-3.121-.993l.534-2.501 1.738.372a.83.83 0 1 0 .83-.869.83.83 0 0 0-.744.468l-1.938-.41a.2.2 0 0 0-.153.028.2.2 0 0 0-.086.134l-.592 2.788c-1.24.038-2.358.41-3.17.992-.21-.2-.496-.324-.81-.324a1.163 1.163 0 0 0-.478 2.224q-.03.17-.029.353c0 1.795 2.091 3.256 4.669 3.256s4.668-1.451 4.668-3.256c0-.114-.01-.238-.029-.353.401-.181.688-.592.688-1.069 0-.65-.525-1.165-1.165-1.165"/>
-</svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-reddit"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M6.167 8a.83.83 0 0 0-.83.83c0 .459.372.84.83.831a.831.831 0 0 0 0-1.661m1.843 3.647c.315 0 1.403-.038 1.976-.611a.23.23 0 0 0 0-.306.213.213 0 0 0-.306 0c-.353.363-1.126.487-1.67.487-.545 0-1.308-.124-1.671-.487a.213.213 0 0 0-.306 0 .213.213 0 0 0 0 .306c.564.563 1.652.61 1.977.61zm.992-2.807c0 .458.373.83.831.83s.83-.381.83-.83a.831.831 0 0 0-1.66 0z"
+                />
+                <path
+                  d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.828-1.165c-.315 0-.602.124-.812.325-.801-.573-1.9-.945-3.121-.993l.534-2.501 1.738.372a.83.83 0 1 0 .83-.869.83.83 0 0 0-.744.468l-1.938-.41a.2.2 0 0 0-.153.028.2.2 0 0 0-.086.134l-.592 2.788c-1.24.038-2.358.41-3.17.992-.21-.2-.496-.324-.81-.324a1.163 1.163 0 0 0-.478 2.224q-.03.17-.029.353c0 1.795 2.091 3.256 4.669 3.256s4.668-1.451 4.668-3.256c0-.114-.01-.238-.029-.353.401-.181.688-.592.688-1.069 0-.65-.525-1.165-1.165-1.165"
+                />
+              </svg>
             </a>
           </nav>
         </div>
         <div class="image cover">
           <img
-            src="img/pro.jpg "
+            src="img/pro.jpg"
             alt="Isuru Mirihagoda working on a project"
           />
         </div>
@@ -676,7 +733,6 @@
             <p style="font-size: 0.9em; color: #ddd; margin-bottom: 10px;">A streaming platform UI clone with responsive design.</p>
             <a href="https://github.com/Yasasisuru/Netflix_Clone" target="_blank" style="display: inline-block; padding: 8px 16px; background-color: var(--dark-yellow); color: var(--black); text-decoration: none; border-radius: 5px; font-size: 0.9em; transition: background-color 0.3s ease;">View on GitHub</a>
           </div>
-         
           <div class="card" tabindex="0" style="display: flex; flex-direction: column; align-items: center;">
             <img src="https://www.v-user.com/images/web-blog/pages/send-a-scheduled-message-whatsapp-business/send-a-scheduled-message-whatsapp-business-banner.webp" alt="Auto Message" style="width: 100%; height: 150px; object-fit: cover; border-radius: 5px; margin-bottom: 10px;">
             <h3 style="font-size: 1.2em; margin: 5px 0; color: #eee;">Auto Message</h3>
@@ -717,6 +773,26 @@
       </div>
     </section>
 
+    <!-- Experience Section -->
+    <section
+      id="experience"
+      class="section"
+      tabindex="-1"
+      aria-label="Experience section"
+    >
+      <div class="overlay"></div>
+      <div class="content">
+        <h2>Experience</h2>
+        <div class="experience-item" tabindex="0">
+          <h3>Student, Vavuniya Campus of the University of Jaffna</h3>
+          <p class="duration">Sep 2021 - Present • 3 yrs 10 mos</p>
+          <p>Sri Lanka</p>
+      
+        </div>
+      
+      </div>
+    </section>
+
     <!-- Contact Section -->
     <section
       id="contact"
@@ -728,16 +804,17 @@
       <div class="content">
         <h2>Contact Me</h2>
         <form action="https://api.web3forms.com/submit" method="POST">
-           <input type="hidden" name="access_key" value="ac04f87c-3523-4899-8ec6-a3e1764b38ed">
+          <input type="hidden" name="access_key" value="ac04f87c-3523-4899-8ec6-a3e1764b38ed">
           <input type="text" placeholder="Name" name="name" aria-label="Name" required />
           <input type="email" placeholder="Email" name="email" aria-label="Email" required />
           <textarea
-            placeholder="Message" name="message"
+            placeholder="Message"
+            name="message"
             aria-label="Message"
             rows="5"
             required
           ></textarea>
-            <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+          <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
           <button type="submit" aria-label="Send Message">Send</button>
         </form>
       </div>
@@ -817,21 +894,23 @@
         window.addEventListener("scroll", onScroll);
         window.addEventListener("load", onScroll);
 
-        // Intersection Observer for contact section animation
-        const contactSection = document.querySelector("#contact");
+        // Intersection Observer for contact and experience section animation
+        const animatedSections = document.querySelectorAll("#contact, #experience");
         const observer = new IntersectionObserver(
-          ([entry]) => {
-            if (entry.isIntersecting) {
-              contactSection.classList.remove("go-out");
-              contactSection.classList.add("come-in");
-            } else {
-              contactSection.classList.remove("come-in");
-              contactSection.classList.add("go-out");
-            }
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.remove("go-out");
+                entry.target.classList.add("come-in");
+              } else {
+                entry.target.classList.remove("come-in");
+                entry.target.classList.add("go-out");
+              }
+            });
           },
           { threshold: 0.1 }
         );
-        observer.observe(contactSection);
+        animatedSections.forEach((section) => observer.observe(section));
       });
     </script>
   </body>
