@@ -206,6 +206,38 @@
       65% { transform: translate3d(var(--ex), var(--ey), 0) rotate(var(--angle)) scaleX(2); opacity:0.8; }
       100% { transform: translate3d(calc(var(--ex) + 10vw), calc(var(--ey) + 6vh), 0) rotate(var(--angle)) scaleX(2.2); opacity:0; }
     }
+    /* Preloader overlay */
+#preloader {
+  position: fixed;
+  inset: 0; /* top:0; right:0; bottom:0; left:0; */
+  background: #03030a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+/* Spinner animation */
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid rgba(255,255,255,0.2);
+  border-top-color: #7be3ff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Hide preloader after loaded */
+#preloader.hide {
+  opacity: 0;
+  visibility: hidden;
+}
+
 
     /* small responsive tweaks */
     @media (max-width: 900px) {
@@ -223,6 +255,11 @@
   </style>
 </head>
 <body>
+  <!-- Preloader -->
+<div id="preloader">
+  <div class="spinner"></div>
+</div>
+
   <!-- Decorative background DOM layer (CSS-driven stars + comets) -->
   <div class="bg-decor" id="bg-decor" aria-hidden="true"></div>
 
@@ -951,5 +988,12 @@ footer a:hover { color: #1e90ff; }
       animate();
     });
   </script>
+  <script>
+  window.addEventListener('load', () => {
+    const preloader = document.getElementById('preloader');
+    preloader.classList.add('hide');
+  });
+</script>
+
 </body>
 </html>
