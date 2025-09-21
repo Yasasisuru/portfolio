@@ -1,1043 +1,717 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/x-icon" href="img/1744600873392.ico">
-    <title>Mirihagoda</title>
-    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
-    <style>
-      :root {
-        --glass-bg: rgba(255, 255, 255, 0.1);
-        --glass-border: 1px solid rgba(255, 255, 255, 0.2);
-        --primary-gradient: linear-gradient(135deg, #6b7280, #a5b4fc, #3b82f6);
-        --secondary-gradient: linear-gradient(135deg, #a5b4fc, #60a5fa, #3b82f6);
-        --text-primary: #e5e7eb;
-        --text-accent: #93c5fd;
-        --glow: 0 0 10px rgba(59, 130, 246, 0.5);
-        --dot-size: 4px;
-      }
-
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        background: var(--primary-gradient);
-        color: var(--text-primary);
-        scroll-behavior: smooth;
-        overflow-x: hidden;
-        min-height: 100vh;
-        transition: background 0.4s ease;
-      }
-
-      .section {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: 2rem;
-        position: relative;
-        background-attachment: fixed;
-        background-size: cover;
-        transition: background 0.6s ease;
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        background: var(--glass-bg);
-        border: var(--glass-border);
-        box-shadow: var(--glow);
-      }
-
-      #home {
-        background: url("https://cdna.artstation.com/p/assets/images/images/054/758/374/large/yusi-c-nighttraxbg1.jpg?1665315800")
-          no-repeat center center;
-      }
-
-      #about, #experience, #projects, #certificate, #contact {
-        background: var(--secondary-gradient);
-      }
-
-      .overlay {
-        position: absolute;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.3);
-        backdrop-filter: blur(5px);
-        -webkit-backdrop-filter: blur(5px);
-        z-index: 0;
-        transition: background 0.4s ease;
-      }
-
-      .content {
-        position: relative;
-        z-index: 1;
-        max-width: 1200px;
-        margin: auto;
-        width: 100%;
-        background: var(--glass-bg);
-        padding: 2rem;
-        border-radius: 1rem;
-        border: var(--glass-border);
-        box-shadow: var(--glow);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-      }
-
-      .content:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 20px rgba(59, 130, 246, 0.7);
-      }
-
-      .two-column {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 2rem;
-        align-items: center;
-        transition: all 0.4s ease;
-      }
-
-      .two-column .text,
-      .two-column .image {
-        flex: 1 1 300px;
-      }
-
-      .two-column .image img {
-        width: 100%;
-        border-radius: 1rem;
-        border: var(--glass-border);
-        box-shadow: var(--glow);
-        transition: transform 0.3s ease;
-      }
-
-      .two-column .image img:hover {
-        transform: scale(1.05);
-      }
-
-      h1, h2 {
-        color: var(--text-accent);
-        margin-bottom: 1rem;
-        text-shadow: 0 0 5px rgba(59, 130, 246, 0.8);
-        transition: color 0.4s ease, text-shadow 0.4s ease;
-      }
-
-      h2 {
-        text-align: center;
-      }
-
-      p {
-        font-size: 1.1rem;
-        line-height: 1.6;
-        color: var(--text-primary);
-        transition: color 0.4s ease;
-      }
-
-      .social-buttons {
-        margin-top: 1rem;
-        display: flex;
-        gap: 0.75rem;
-        flex-wrap: wrap;
-      }
-
-      .btn {
-        background: var(--glass-bg);
-        border: var(--glass-border);
-        color: var(--text-primary);
-        padding: 0.4rem;
-        border-radius: 6px;
-        text-decoration: none;
-        font-size: 0;
-        font-weight: 600;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: var(--glow);
-        transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-        width: 30px;
-        height: 30px;
-      }
-
-      .btn svg {
-        width: 15px;
-        height: 15px;
-        fill: var(--text-primary);
-        transition: fill 0.3s ease;
-      }
-
-      .btn:hover {
-        transform: scale(1.2);
-        box-shadow: 0 6px 15px rgba(59, 130, 246, 0.8);
-        background: var(--secondary-gradient);
-      }
-
-      .btn:hover svg {
-        fill: #fff;
-      }
-
-      .floating-buttons {
-        position: fixed;
-        bottom: 1rem;
-        left: 1rem;
-        display: flex;
-        gap: 0.5rem;
-        z-index: 999;
-        opacity: 0;
-        pointer-events: none;
-        transform: translateY(20px);
-        animation: fadeSlideIn 0.6s forwards 0.4s;
-        transition: opacity 0.4s ease, transform 0.4s ease;
-      }
-
-      body.home-visible .floating-buttons {
-        opacity: 0 !important;
-        pointer-events: none !important;
-        transform: translateY(20px) !important;
-        animation: none !important;
-      }
-
-      .floating-buttons a {
-        background: var(--glass-bg);
-        border: var(--glass-border);
-        color: var(--text-primary);
-        padding: 0.4rem;
-        border-radius: 50%;
-        font-size: 0;
-        font-weight: 600;
-        text-decoration: none;
-        box-shadow: var(--glow);
-        transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-        width: 30px;
-        height: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .floating-buttons a svg {
-        width: 15px;
-        height: 15px;
-        fill: var(--text-primary);
-        transition: fill 0.3s ease;
-      }
-
-      .floating-buttons a:hover {
-        transform: scale(1.15);
-        box-shadow: 0 5px 15px rgba(59, 130, 246, 0.9);
-        background: var(--secondary-gradient);
-      }
-
-      .floating-buttons a:hover svg {
-        fill: #fff;
-      }
-
-      @keyframes fadeSlideIn {
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      .dot-navigation {
-        position: fixed;
-        top: 50%;
-        right: 1rem;
-        transform: translateY(-50%);
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-        z-index: 999;
-        user-select: none;
-        transition: opacity 0.4s ease;
-      }
-
-      .dot-wrapper {
-        display: flex;
-        align-items: center;
-        gap: 0.8rem;
-        cursor: pointer;
-        position: relative;
-        transition: transform 0.3s ease;
-      }
-
-      .dot-wrapper:hover {
-        transform: scale(1.2);
-      }
-
-      .dot {
-        width: var(--dot-size);
-        height: var(--dot-size);
-        border-radius: 50%;
-        background: var(--text-primary);
-        border: var(--glass-border);
-        opacity: 0.5;
-        transition: opacity 0.3s ease, background 0.3s ease, width 0.3s ease, height 0.3s ease;
-        flex-shrink: 0;
-      }
-
-      .dot.active {
-        opacity: 1;
-        background: var(--secondary-gradient);
-        width: calc(var(--dot-size) * 2.5);
-        height: calc(var(--dot-size) * 2.5);
-        box-shadow: var(--glow);
-        transition: opacity 0.4s ease, background 0.4s ease, width 0.4s ease, height 0.4s ease, box-shadow 0.4s ease;
-      }
-
-      .label {
-        font-size: 0.9rem;
-        color: var(--text-accent);
-        font-weight: 600;
-        white-space: nowrap;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.3s ease, transform 0.3s ease;
-        position: absolute;
-        right: 150%;
-        top: 50%;
-        transform-origin: right center;
-        transform: translateY(-50%) translateX(10px);
-      }
-
-      .dot-wrapper.active .label {
-        opacity: 1;
-        transform: translateY(-50%) translateX(0);
-        pointer-events: auto;
-      }
-
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 1rem;
-        margin-top: 1rem;
-        transition: all 0.4s ease;
-      }
-
-      .card {
-        background: var(--glass-bg);
-        padding: 1rem;
-        border-radius: 0.5rem;
-        border: var(--glass-border);
-        cursor: pointer;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        box-shadow: var(--glow);
-        color: var(--text-primary);
-        font-weight: 600;
-        text-align: center;
-      }
-
-      .card:hover {
-        transform: translateY(-7px);
-        box-shadow: 0 10px 20px rgba(59, 130, 246, 0.7);
-        background: var(--secondary-gradient);
-      }
-
-      form {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        max-width: 600px;
-        margin: 2rem auto 0;
-        transition: all 0.4s ease;
-      }
-
-      input,
-      textarea {
-        padding: 0.75rem;
-        border: var(--glass-border);
-        border-radius: 6px;
-        font-size: 1rem;
-        background: var(--glass-bg);
-        color: var(--text-primary);
-        box-shadow: var(--glow);
-        transition: box-shadow 0.3s ease, background 0.3s ease;
-        resize: vertical;
-      }
-
-      input:focus,
-      textarea:focus {
-        outline: none;
-        box-shadow: 0 0 8px rgba(59, 130, 246, 0.8);
-        background: rgba(255, 255, 255, 0.15);
-      }
-
-      button[type="submit"] {
-        background: var(--secondary-gradient);
-        color: var(--text-primary);
-        padding: 0.75rem;
-        border: var(--glass-border);
-        border-radius: 6px;
-        font-weight: bold;
-        cursor: pointer;
-        box-shadow: var(--glow);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-      }
-
-      button[type="submit"]:hover {
-        transform: scale(1.05);
-        box-shadow: 0 8px 25px rgba(59, 130, 246, 1);
-      }
-
-      @media (max-width: 768px) {
-        .two-column {
-          flex-direction: column;
-        }
-
-        .dot-navigation {
-          right: 0.5rem;
-          gap: 1rem;
-        }
-
-        .dot-wrapper:hover {
-          transform: none;
-        }
-      }
-
-      @keyframes comeIn {
-        from {
-          opacity: 0;
-          transform: translateY(50px) scale(0.95);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0) scale(1);
-        }
-      }
-
-      @keyframes goOut {
-        from {
-          opacity: 1;
-          transform: translateY(0) scale(1);
-        }
-        to {
-          opacity: 0;
-          transform: translateY(50px) scale(0.95);
-        }
-      }
-
-      #contact.come-in,
-      #experience.come-in {
-        animation: comeIn 1s ease-out forwards;
-      }
-
-      #contact.go-out,
-      #experience.go-out {
-        animation: goOut 1s ease-out forwards;
-      }
-
-      .typed-text {
-        color: var(--text-accent);
-        font-weight: 600;
-        display: inline-block;
-        min-width: 200px;
-        text-shadow: var(--glow);
-      }
-
-      .cover img {
-        width: 200px;
-        height: 400px;
-      }
-
-      .experience-item {
-        background: var(--glass-bg);
-        padding: 1.5rem;
-        border-radius: 0.5rem;
-        border: var(--glass-border);
-        margin-bottom: 1rem;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        box-shadow: var(--glow);
-      }
-
-      .experience-item:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 12px 24px rgba(59, 130, 246, 0.7);
-        background: var(--secondary-gradient);
-      }
-
-      .experience-item h3 {
-        color: var(--text-accent);
-        font-size: 1.3rem;
-        margin-bottom: 0.5rem;
-        text-shadow: var(--glow);
-      }
-
-      .experience-item p {
-        font-size: 1rem;
-        color: var(--text-primary);
-        margin-bottom: 0.5rem;
-      }
-
-      .experience-item .duration {
-        font-size: 0.9rem;
-        color: #d1d5db;
-      }
-
-      .timeline {
-        position: relative;
-        padding-left: 2rem;
-      }
-
-      .timeline::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 1rem;
-        height: 100%;
-        width: 4px;
-        background: var(--glass-bg);
-        border-radius: 2px;
-        box-shadow: var(--glow);
-      }
-
-      .timeline-dot {
-        width: 16px;
-        height: 16px;
-        background: var(--secondary-gradient);
-        border-radius: 50%;
-        position: absolute;
-        left: -1.75rem;
-        top: 0.5rem;
-        box-shadow: var(--glow);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-      }
-
-      .timeline-item:hover .timeline-dot {
-        transform: scale(1.3);
-        box-shadow: 0 0 12px rgba(59, 130, 246, 0.9);
-      }
-
-      .timeline-item img {
-        transition: transform 0.3s ease;
-      }
-
-      .timeline-item:hover img {
-        transform: scale(1.1);
-      }
-
-      .preloader {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: var(--primary-gradient);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-        transition: opacity 0.5s ease;
-      }
-
-      .spinner {
-        width: 50px;
-        height: 50px;
-        border: 5px solid var(--glass-bg);
-        border-top: 5px solid var(--text-accent);
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-      }
-
-      @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-      }
-
-      .preloader.hidden {
-        opacity: 0;
-        visibility: hidden;
-      }
-
-      .content {
-        padding: 20px;
-        text-align: center;
-        font-family: Arial, sans-serif;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="preloader" id="preloader">
-      <div class="spinner"></div>
-    </div>
-    <!-- Dot Navigation with Labels -->
-    <nav class="dot-navigation" aria-label="Section Navigation">
-      <div
-        class="dot-wrapper active"
-        data-section="home"
-        tabindex="0"
-        role="button"
-        aria-current="page"
-        aria-label="Home section"
-      >
-        <span class="label">Home</span>
-        <div class="dot"></div>
-      </div>
-      <div
-        class="dot-wrapper"
-        data-section="about"
-        tabindex="0"
-        role="button"
-        aria-label="About section"
-      >
-        <span class="label">About</span>
-        <div class="dot"></div>
-      </div>
-      <div
-        class="dot-wrapper"
-        data-section="projects"
-        tabindex="0"
-        role="button"
-        aria-label="Projects section"
-      >
-        <span class="label">Projects</span>
-        <div class="dot"></div>
-      </div>
-      <div
-        class="dot-wrapper"
-        data-section="certificate"
-        tabindex="0"
-        role="button"
-        aria-label="Certificate section"
-      >
-        <span class="label">Certificate</span>
-        <div class="dot"></div>
-      </div>
-      <div
-        class="dot-wrapper"
-        data-section="experience"
-        tabindex="0"
-        role="button"
-        aria-label="Experience section"
-      >
-        <span class="label">Experience</span>
-        <div class="dot"></div>
-      </div>
-      <div
-        class="dot-wrapper"
-        data-section="contact"
-        tabindex="0"
-        role="button"
-        aria-label="Contact section"
-      >
-        <span class="label">Contact</span>
-        <div class="dot"></div>
-      </div>
-    </nav>
-
-    <!-- Home Section -->
-    <section id="home" class="section" tabindex="-1" aria-label="Home section">
-      <div class="overlay"></div>
-      <div class="content two-column">
-        <div class="text" style="text-align: start;">
-          <h1>Isuru Mirihagoda</h1>
-          <h4 style="color: var(--text-primary);">I'm a <span class="typed-text"></span></h4>
-          <p style="text-align: justify;">
-            Fourth-year IT student at the University of Vavuniya, passionate
-            about web development and technology.
-          </p>
-          <nav class="social-buttons" aria-label="Additional Social Links">
-            <a
-              href="https://www.credly.com/users/isuru-mirihagoda"
-              class="btn"
-              target="_blank"
-              rel="noopener"
-              aria-label="Credly"
-              title="Credly"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-patch-check"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M10.354 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708 0"
-                />
-                <path
-                  d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911z"
-                />
-              </svg>
-            </a>
-            <a
-              href="https://medium.com/@isurumirihagoda"
-              class="btn"
-              target="_blank"
-              rel="noopener"
-              aria-label="Medium"
-              title="Medium"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-medium"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M9.025 8c0 2.485-2.02 4.5-4.513 4.5A4.506 4.506 0 0 1 0 8c0-2.486 2.02-4.5 4.512-4.5A4.506 4.506 0 0 1 9.025 8m4.95 0c0 2.34-1.01 4.236-2.256 4.236S9.463 10.339 9.463 8c0-2.34 1.01-4.236 2.256-4.236S13.975 5.661 13.975 8M16 8c0 2.096-.355 3.795-.794 3.795-.438 0-.793-1.7-.793-3.795 0-2.096.355-3.795.794-3.795.438 0 .793 1.699.793 3.795"
-                />
-              </svg>
-            </a>
-            <a
-              href="https://www.linkedin.com/in/yasas-isuru/"
-              class="btn"
-              target="_blank"
-              rel="noopener"
-              aria-label="LinkedIn"
-              title="LinkedIn"
-            >
-              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <path
-                  d="M4 4h4v16H4zM12 8h3v2h.05c.42-.8 1.46-1.65 3-1.65 3.21 0 3.8 2.12 3.8 4.87V20h-4v-5.4c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.07 1.4-2.07 2.85V20h-4z"
-                />
-              </svg>
-            </a>
-            <a
-              href="https://github.com/Yasasisuru"
-              class="btn"
-              target="_blank"
-              rel="noopener"
-              aria-label="GitHub"
-              title="GitHub"
-            >
-              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <path
-                  d="M12 2C6.48 2 2 6.48 2 12c0 4.41 2.87 8.15 6.84 9.49.5.09.68-.22.68-.48 0-.24-.01-1.04-.01-1.88-2.78.6-3.37-1.34-3.37-1.34-.46-1.16-1.12-1.47-1.12-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.36 1.09 2.93.83.09-.64.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.95 0-1.09.39-1.99 1.03-2.69-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0 1 12 6.8c.85.004 1.7.11 2.5.32 1.9-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.6 1.03 2.69 0 3.85-2.34 4.7-4.57 4.95.36.31.68.92.68 1.85 0 1.34-.01 2.42-.01 2.75 0 .27.18.58.69.48A10.007 10.007 0 0 0 22 12c0-5.52-4.48-10-10-10z"
-                />
-              </svg>
-            </a>
-            <a
-              href="https://twitter.com/yasas_isuru_"
-              class="btn"
-              target="_blank"
-              rel="noopener"
-              aria-label="Twitter"
-              title="Twitter"
-            >
-              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <path
-                  d="M22.46 6c-.77.35-1.6.59-2.46.7a4.27 4.27 0 0 0 1.87-2.36c-.83.5-1.76.85-2.74 1.05A4.21 4.21 0 0 0 16.07 4c-2.36 0-4.28 1.92-4.28 4.28 0 .34.04.67.11.99-3.56-.18-6.72-1.88-8.83-4.46-.37.63-.59 1.36-.59 2.15 0 1.48.75 2.8 1.88 3.57a4.25 4.25 0 0 1-1.94-.54v.05c0 2.07 1.48 3.8 3.45 4.19a4.33 4.33 0 0 1-1.93.07 4.28 4.28 0 0 0 3.99 2.97A8.47 8.47 0 0 1 2 18.43a11.94 11.94 0 0 0 6.29 1.84c7.55 0 11.68-6.25 11.68-11.68 0-.18-.01-.36-.02-.54A8.35 8.35 0 0 0 22.46 6z"
-                />
-              </svg>
-            </a>
-            <a
-              href="https://reddit.com/u/yasas_isuru"
-              class="btn"
-              target="_blank"
-              rel="noopener"
-              aria-label="Reddit"
-              title="Reddit"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-reddit"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M6.167 8a.83.83 0 0 0-.83.83c0 .459.372.84.83.831a.831.831 0 0 0 0-1.661m1.843 3.647c.315 0 1.403-.038 1.976-.611a.23.23 0 0 0 0-.306.213.213 0 0 0-.306 0c-.353.363-1.126.487-1.67.487-.545 0-1.308-.124-1.671-.487a.213.213 0 0 0-.306 0 .213.213 0 0 0 0 .306c.564.563 1.652.61 1.977.61zm.992-2.807c0 .458.373.83.831.83s.83-.381.83-.83a.831.831 0 0 0-1.66 0z"
-                />
-                <path
-                  d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.828-1.165c-.315 0-.602.124-.812.325-.801-.573-1.9-.945-3.121-.993l.534-2.501 1.738.372a.83.83 0 1 0 .83-.869.83.83 0 0 0-.744.468l-1.938-.41a.2.2 0 0 0-.153.028.2.2 0 0 0-.086.134l-.592 2.788c-1.24.038-2.358.41-3.17.992-.21-.2-.496-.324-.81-.324a1.163 1.163 0 0 0-.478 2.224q-.03.17-.029.353c0 1.795 2.091 3.256 4.669 3.256s4.668-1.451 4.668-3.256c0-.114-.01-.238-.029-.353.401-.181.688-.592.688-1.069 0-.65-.525-1.165-1.165-1.165"
-                />
-              </svg>
-            </a>
-          </nav>
+<head>
+  <meta charset="utf-8" />
+  <title>Me.isuru</title>
+   <link rel="icon" type="image/x-icon" href="img/1744600873392.ico">
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Yasasisuru - Network Engineer, System Engineer & Frontend Developer. Space-themed portfolio with 3D visuals and interactive projects." />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Typed.js for the typewriter role animation -->
+  <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js" defer></script>
+
+  <!-- Three.js for 3D model, starfield & comet animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js" defer></script>
+
+  <style>
+    :root{
+      --bg-900:#03030a;
+      --accent:#7be3ff;
+      --accent-2:#9b8cff;
+      --muted:#9aa3b2;
+      --glass: rgba(255, 255, 255, 0.104);
+      --glass-2: rgba(255,255,255,0.03);
+      --card-border: rgba(255,255,255,0.06);
+      --star-opacity: 0.6; /* requested 60% opacity for background stars */
+      --max-width: 1200px;
+      --radius: 14px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg-900),#000 60%);color:#eaf6ff;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;}
+    a{color:inherit}
+    main{position:relative;z-index:2;max-width:var(--max-width);margin:0 auto;padding:48px 20px 120px}
+    header.site-brand{display:flex;align-items:center;gap:12px;margin-bottom:28px;user-select:none}
+    header .logo {
+      display:flex;align-items:center;gap:10px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      padding:8px 12px;border-radius:10px;color:#021428;font-weight:700;box-shadow:0 6px 24px rgba(43,124,156,0.12);
+    }
+
+    /* --- Hero (Home) --- */
+    .hero {
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:30px;
+      align-items:center;
+      padding:44px;
+      border-radius:var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid var(--card-border);
+      box-shadow: 0 12px 50px rgba(2,6,23,0.6);
+      position:relative;
+      overflow:hidden;
+      backdrop-filter: blur(6px);
+    }
+
+    /* Left: your image (one side as requested) */
+    .hero .avatar-wrap{
+      display:flex;align-items:center;justify-content:center;
+      padding:18px;
+    }
+    .avatar {
+      width:100%;
+      max-width:320px;
+      aspect-ratio:1/1;
+      border-radius:22px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+      transform: translateZ(0);
+    }
+    .avatar img{width:100%;height:100%;object-fit:cover;display:block;filter:contrast(1.05) saturate(1.03)}
+
+    /* Right: text & typed stack */
+    .hero .hero-copy{padding:8px}
+    .hero h1{font-family:"Space Grotesk",Inter, sans-serif;font-size:clamp(30px,4.4vw,48px);margin:0 0 8px}
+    .hero p.lead{margin:0 0 16px;color:var(--muted);font-size:1rem;line-height:1.4}
+    .typed-line{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .typed-line .typed-label{font-size:0.90rem;color:var(--muted);padding:6px 10px;background:var(--glass);border-radius:999px;border:1px solid rgba(255,255,255,0.03)}
+    .typed-text{font-weight:700;font-size:1.05rem;color:var(--accent);min-height:26px}
+
+    /* Hero quick badges */
+    .badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+    .badge{background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:8px 10px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);font-size:0.88rem;color:var(--muted)}
+
+    /* Sections */
+    section.page-section{margin-top:36px;padding:36px;border-radius:var(--radius);background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.008));border:1px solid var(--card-border)}
+    section h2{margin:0 0 16px;font-size:1.2rem;color:#d9f7ff}
+    .section-row{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;align-items:start}
+
+    /* Certificates (Cisco style cards) */
+    .cert-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+    .cert-card{
+      padding:16px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(255,255,255,0.02));
+      border:1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.45);
+      transition:transform .35s ease, box-shadow .35s ease;
+      display:flex;flex-direction:column;gap:8px;
+    }
+    .cert-card:hover{transform:translateY(-8px);box-shadow:0 20px 60px rgba(19,34,72,0.6)}
+    .cert-card .cert-logo{width:56px;height:40px;border-radius:8px;background:linear-gradient(90deg,#0f1016,#1a1b2a);display:flex;align-items:center;justify-content:center;color:var(--accent);font-weight:700}
+    .cert-title{font-weight:700;color:#e9fbff}
+    .cert-meta{font-size:0.9rem;color:var(--muted)}
+
+    /* Projects grid with interactive tilt & stack animation */
+    .project-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+    .project {
+      perspective:1200px;
+    }
+    .project-card{
+      border-radius:12px;padding:16px;background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.03);
+      transition:transform .2s ease, box-shadow .25s ease;
+      transform-style:preserve-3d;
+      box-shadow: 0 12px 30px rgba(3,6,14,0.6);
+      overflow:hidden;
+    }
+    .project-thumb{width:100%;height:140px;border-radius:10px;overflow:hidden;margin-bottom:10px;background:#071225;display:block}
+    .project-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+    .project-title{font-weight:700;margin:0 0 6px}
+    .stack-row{display:flex;gap:8px;flex-wrap:wrap}
+    .stack-pill{padding:6px 8px;border-radius:999px;background:rgba(255,255,255,0.03);font-size:0.8rem;border:1px solid rgba(255,255,255,0.02)}
+
+    /* Contact form */
+    .contact-form{display:grid;gap:12px;grid-template-columns:repeat(1,1fr);max-width:640px;margin:0 auto}
+    .input,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:rgba(255,255,255,0.01);color:#eaf6ff}
+    .btn{
+      display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      color:#021428;border:0;font-weight:700;cursor:pointer;box-shadow:0 8px 28px rgba(155,140,255,0.12)
+    }
+
+    /* Floating social buttons bottom-left (horizontal) - visible and accessible */
+    .social-fixed{
+      position:fixed;left:18px;bottom:18px;display:flex;gap:10px;align-items:center;z-index:9999;
+      backdrop-filter: blur(6px);
+    }
+    .social-btn{
+      display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;background:linear-gradient(90deg,#041626,rgba(255,255,255,0.02));
+      color:#eaf6ff;text-decoration:none;border:1px solid rgba(255,255,255,0.04);box-shadow:0 6px 20px rgba(0,0,0,0.6);font-weight:600;font-size:0.92rem;
+      transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+    .social-btn i{font-size:18px}
+    .social-btn:focus,.social-btn:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(12,28,45,0.55)}
+    .social-btn .label{display:inline-block}
+
+    /* Three.js overlay container for starfield & satellite */
+    #three-overlay {
+      position:fixed;inset:0;z-index:1;pointer-events:none;opacity:1;
+      mix-blend-mode:screen;
+    }
+
+    /* Background decorative layer for CSS stars and comets (full-screen) */
+    .bg-decor {
+      position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;
+      opacity:1;
+      mix-blend-mode:screen;
+    }
+
+    /* small CSS drifting stars (many tiny dots that slowly drift) */
+    .bg-star {
+      position:absolute;
+      border-radius:50%;
+      background: #ffffff;
+      opacity: var(--star-opacity);
+      filter: blur(0.2px);
+      pointer-events:none;
+      transform: translate3d(0,0,0);
+      will-change: transform, opacity;
+      animation-name: drift, twinkle;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+    }
+
+    @keyframes drift {
+      0% { transform: translate3d(0, 0, 0) }
+      50% { transform: translate3d(var(--moveX), var(--moveY), 0) }
+      100% { transform: translate3d(0, 0, 0) }
+    }
+    /* slight opacity flicker for more natural stars */
+    @keyframes twinkle {
+      0% { opacity: calc(var(--star-opacity) * 0.8) }
+      40% { opacity: calc(var(--star-opacity) * 1.0) }
+      100% { opacity: calc(var(--star-opacity) * 0.85) }
+    }
+
+    /* Comet (CSS) - longer streak elements that fly across screen */
+    .css-comet {
+      position:absolute;
+      width:2px;
+      height:2px;
+      border-radius:50%;
+      background: linear-gradient(90deg, rgba(255,255,255,1), rgba(255,255,255,0));
+      filter: blur(0.6px);
+      pointer-events:none;
+      transform-origin: center;
+      will-change: transform, opacity;
+    }
+    @keyframes cssCometFly {
+      0% { transform: translate3d(var(--sx), var(--sy), 0) rotate(var(--angle)) scaleX(1); opacity:0; }
+      8% { opacity: 1; }
+      65% { transform: translate3d(var(--ex), var(--ey), 0) rotate(var(--angle)) scaleX(2); opacity:0.8; }
+      100% { transform: translate3d(calc(var(--ex) + 10vw), calc(var(--ey) + 6vh), 0) rotate(var(--angle)) scaleX(2.2); opacity:0; }
+    }
+
+    /* small responsive tweaks */
+    @media (max-width: 900px) {
+      .hero{grid-template-columns: 1fr; padding:18px}
+      .section-row{grid-template-columns:1fr}
+      main{padding:22px 14px 120px}
+      .social-btn .label{display:none} /* show icons only on mobile */
+      .avatar{max-width:260px}
+      .hero h1{font-size:28px}
+    }
+
+    /* subtle fade-in used by JS to reveal sections */
+    .reveal{opacity:0;transform:translateY(6px);transition:opacity .7s ease, transform .6s ease}
+    .reveal.visible{opacity:1;transform:none}
+  </style>
+</head>
+<body>
+  <!-- Decorative background DOM layer (CSS-driven stars + comets) -->
+  <div class="bg-decor" id="bg-decor" aria-hidden="true"></div>
+
+  <!-- Three.js overlay (starfield + comet + satellite) -->
+  <div id="three-overlay" aria-hidden="true"></div>
+
+  <main>
+    <header class="site-brand" aria-hidden="false">
+      <div class="logo"><i class="fa-solid fa-network-wired"></i> isuru</div>
+      <div style="color:var(--muted);font-size:0.95rem;margin-left:auto">Network and IT Help</div>
+    </header>
+
+    <!-- HERO / Home -->
+    <section class="hero" aria-labelledby="homeHeading" id="home">
+      <!-- left: avatar (user image) -->
+      <div class="avatar-wrap reveal" data-reveal>
+        <div class="avatar" title="Yasasisuru (profile)">
+          <!-- GitHub avatar auto-resolve -->
+          <img src="img/profile.png" alt="Profile photo of Yasasisuru" loading="lazy" />
         </div>
-        <div class="image cover">
-          <img
-            src="img/profile.png"
-            alt="Isuru Mirihagoda working on a project"
-          />
+      </div>
+
+      <!-- right: copy + typed roles -->
+      <div class="hero-copy reveal" data-reveal>
+        <h1 id="homeHeading">Hi - I'm <span style="color:var(--accent)">Yasas isuru</span></h1>
+        <p class="lead">Currently, I am undergoing industrial training at Sri Lanka Rupavahini Corporation, where I am gaining practical experience in networking and IT support.</p>
+
+        <div class="typed-line" aria-live="polite">
+          <div class="typed-label"><i class="fa-solid fa-rocket"></i> Role</div>
+          <div class="typed-text" aria-hidden="false"></div>
         </div>
+
+       
       </div>
     </section>
 
-    <!-- About Section -->
-    <section
-      id="about"
-      class="section"
-      tabindex="-1"
-      aria-label="About section"
-    >
-      <div class="overlay"></div>
-      <div class="content two-column">
-        <div class="image">
-          <img
-            src="img/bg.jpg"
-            alt="Isuru Mirihagoda in a professional setting"
-          />
-        </div>
-        <div class="text">
-          <h2>About Me</h2>
-          <p style="text-align: justify;">
-            I am a passionate and detail-oriented software developer with
-            expertise in building modern, scalable applications. With hands-on
-            experience in Java (Spring Boot), Angular, Laravel, and C++, I
-            specialize in crafting efficient and user-centric solutions. I am
-            dedicated to delivering high-quality code and staying updated with
-            the latest industry trends.
-          </p>
-        </div>
-      </div>
-    </section>
+    <!-- ABOUT -->
+    <section class="page-section reveal" data-reveal id="about" aria-labelledby="aboutHeading">
+      <h2 id="aboutHeading">About</h2>
+      <div class="section-row">
+        <div>
+          <p>I am a BICT student at Vavuniya Campus, University of Jaffna, with a strong interest in engineering technology. I completed my GCE (A/L) at Ibbagamuwa Central College and hold certifications in Python for Beginners, Introduction to IoT, and Python Essentials 1. My skills include Python programming, networking, and Packet Tracer. Currently, I am gaining practical experience in networking and IT support through industrial training at Sri Lanka Rupavahini Corporation and am eager to apply my knowledge to real-world ICT projects.</p>
 
-    <!-- Projects Section -->
-    <section
-      id="projects"
-      class="section"
-      tabindex="-1"
-      aria-label="Projects section"
-    >
-      <div class="overlay"></div>
-      <div class="content">
-        <h2>Projects</h2>
-        <div class="grid">
-          <div class="card" tabindex="0" style="display: flex; flex-direction: column; align-items: center;">
-            <img src="https://images.pexels.com/photos/683039/pexels-photo-683039.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Coffee Shop Website" style="width: 100%; height: 150px; object-fit: cover; border-radius: 5px; margin-bottom: 10px;">
-            <h3 style="font-size: 1.2em; margin: 5px 0; color: var(--text-primary);">Coffee Shop Website</h3>
-            <p style="font-size: 0.9em; color: var(--text-primary); margin-bottom: 10px;">A responsive e-commerce site for a coffee shop with a modern design.</p>
-            <a href="https://github.com/Yasasisuru/coffee-shop" target="_blank" style="display: inline-block; padding: 8px 16px; background: var(--secondary-gradient); color: var(--text-primary); text-decoration: none; border-radius: 5px; font-size: 0.9em; transition: background 0.3s ease; border: var(--glass-border);">View on GitHub</a>
-          </div>
-          <div class="card" tabindex="0" style="display: flex; flex-direction: column; align-items: center;">
-            <img src="https://t3.ftcdn.net/jpg/02/59/31/70/240_F_259317013_nJJaBgGGzvXMd6cAyLd6yMJtbdnd61wk.jpg" alt="ToDo App" style="width: 100%; height: 150px; object-fit: cover; border-radius: 5px; margin-bottom: 10px;">
-            <h3 style="font-size: 1.2em; margin: 5px 0; color: var(--text-primary);">ToDo App</h3>
-            <p style="font-size: 0.9em; color: var(--text-primary); margin-bottom: 10px;">A task management app with intuitive UI and local storage.</p>
-            <a href="https://github.com/Yasasisuru/ToDoApp" target="_blank" style="display: inline-block; padding: 8px 16px; background: var(--secondary-gradient); color: var(--text-primary); text-decoration: none; border-radius: 5px; font-size: 0.9em; transition: background 0.3s ease; border: var(--glass-border);">View on GitHub</a>
-          </div>
-          <div class="card" tabindex="0" style="display: flex; flex-direction: column; align-items: center;">
-            <img src="https://t3.ftcdn.net/jpg/01/10/01/90/240_F_110019055_JBbr778hMxpwuwDaFszyQNck5PhBYHli.jpg" alt="To Do App" style="width: 100%; height: 150px; object-fit: cover; border-radius: 5px; margin-bottom: 10px;">
-            <h3 style="font-size: 1.2em; margin: 5px 0; color: var(--text-primary);">To Do App</h3>
-            <p style="font-size: 0.9em; color: var(--text-primary); margin-bottom: 10px;">A simple to-do list app with task prioritization features.</p>
-            <a href="https://github.com/Yasasisuru/to_do_app" target="_blank" style="display: inline-block; padding: 8px 16px; background: var(--secondary-gradient); color: var(--text-primary); text-decoration: none; border-radius: 5px; font-size: 0.9em; transition: background 0.3s ease; border: var(--glass-border);">View on GitHub</a>
-          </div>
-          <div class="card" tabindex="0" style="display: flex; flex-direction: column; align-items: center;">
-            <img src="https://osoyoo.com/picture/V2.1_Arduino_Robot_Car/other/1.jpg" alt="Arduino Car Control" style="width: 100%; height: 150px; object-fit: cover; border-radius: 5px; margin-bottom: 10px;">
-            <h3 style="font-size: 1.2em; margin: 5px 0; color: var(--text-primary);">Arduino Car Control</h3>
-            <p style="font-size: 0.9em; color: var(--text-primary); margin-bottom: 10px;">A remote-controlled car using Arduino and Bluetooth.</p>
-            <a href="https://github.com/Yasasisuru/-Arduino-Car-Control-Project" target="_blank" style="display: inline-block; padding: 8px 16px; background: var(--secondary-gradient); color: var(--text-primary); text-decoration: none; border-radius: 5ევ
-            <a href="https://github.com/Yasasisuru/-Arduino-Car-Control-Project" target="_blank" style="display: inline-block; padding: 8px 16px; background: var(--secondary-gradient); color: var(--text-primary); text-decoration: none; border-radius: 5px; font-size: 0.9em; transition: background 0.3s ease; border: var(--glass-border);">View on GitHub</a>
-          </div>
-          <div class="card" tabindex="0" style="display: flex; flex-direction: column; align-items: center;">
-            <img src="https://s3-figma-hubfile-images-production.figma.com/hub/file/carousel/img/ce85ac897baf911007909dee3277af9390de89f5" alt="Netflix Clone" style="width: 100%; height: 150px; object-fit: cover; border-radius: 5px; margin-bottom: 10px;">
-            <h3 style="font-size: 1.2em; margin: 5px 0; color: var(--text-primary);">Netflix Clone</h3>
-            <p style="font-size: 0.9em; color: var(--text-primary); margin-bottom: 10px;">A streaming platform UI clone with responsive design.</p>
-            <a href="https://github.com/Yasasisuru/Netflix_Clone" target="_blank" style="display: inline-block; padding: 8px 16px; background: var(--secondary-gradient); color: var(--text-primary); text-decoration: none; border-radius: 5px; font-size: 0.9em; transition: background 0.3s ease; border: var(--glass-border);">View on GitHub</a>
-          </div>
-          <div class="card" tabindex="0" style="display: flex; flex-direction: column; align-items: center;">
-            <img src="https://www.v-user.com/images/web-blog/pages/send-a-scheduled-message-whatsapp-business/send-a-scheduled-message-whatsapp-business-banner.webp" alt="Auto Message" style="width: 100%; height: 150px; object-fit: cover; border-radius: 5px; margin-bottom: 10px;">
-            <h3 style="font-size: 1.2em; margin: 5px 0; color: var(--text-primary);">Auto Message</h3>
-            <p style="font-size: 0.9em; color: var(--text-primary); margin-bottom: 10px;">An automated messaging tool for scheduling messages.</p>
-            <a href="https://github.com/Yasasisuru/auto_message" target="_blank" style="display: inline-block; padding: 8px 16px; background: var(--secondary-gradient); color: var(--text-primary); text-decoration: none; border-radius: 5px; font-size: 0.9em; transition: background 0.3s ease; border: var(--glass-border);">View on GitHub</a>
-          </div>
-          <div class="card" tabindex="0" style="display: flex; flex-direction: column; align-items: center;">
-            <img src="https://codingzap.com/wp-content/uploads/2024/10/Students-Portal.webp" alt="Student CRUD" style="width: 100%; height: 150px; object-fit: cover; border-radius: 5px; margin-bottom: 10px;">
-            <h3 style="font-size: 1.2em; margin: 5px 0; color: var(--text-primary);">Student CRUD</h3>
-            <p style="font-size: 0.9em; color: var(--text-primary); margin-bottom: 10px;">A student management system with CRUD operations.</p>
-            <a href="https://github.com/Yasasisuru/Student_CRUD" target="_blank" style="display: inline-block; padding: 8px 16px; background: var(--secondary-gradient); color: var(--text-primary); text-decoration: none; border-radius: 5px; font-size: 0.9em; transition: background 0.3s ease; border: var(--glass-border);">View on GitHub</a>
-          </div>
-          <div class="card" tabindex="0" style="display: flex; flex-direction: column; align-items: center;">
-            <img src="https://designnotes.blog.gov.uk/wp-content/uploads/sites/53/2020/06/Portfolio-Desk-1536x1017.jpg" alt="Portfolio" style="width: 100%; height: 150px; object-fit: cover; border-radius: 5px; margin-bottom: 10px;">
-            <h3 style="font-size: 1.2em; margin: 5px 0; color: var(--text-primary);">Personal Portfolio</h3>
-            <p style="font-size: 0.9em; color: var(--text-primary); margin-bottom: 10px;">A responsive portfolio showcasing my projects and skills.</p>
-            <a href="https://github.com/Yasasisuru/portfolio" target="_blank" style="display: inline-block; padding: 8px 16px; background: var(--secondary-gradient); color: var(--text-primary); text-decoration: none; border-radius: 5px; font-size: 0.9em; transition: background 0.3s ease; border: var(--glass-border);">View on GitHub</a>
-          </div>
+          <ul style="list-style:none;padding-left:0;margin-top:12px;color:var(--muted)">
+            <li><i class="fa-solid fa-check-double" style="color:var(--accent)"></i> Networking</li>
+            <li><i class="fa-solid fa-check-double" style="color:var(--accent)"></i> IT Help</li>
+            <li><i class="fa-solid fa-check-double" style="color:var(--accent)"></i> Frontend (HTML/CSS/Angular)</li>
+          </ul>
         </div>
-      </div>
-    </section>
-
-    <!-- Certificate Section -->
-    <section id="certificate" class="section" tabindex="-1" aria-label="Certificate section">
-  <div class="overlay"></div>
-  <div class="content">
-    <h2>Certificates</h2>
-    <div class="grid">
-      <div class="card" tabindex="0" style="display: flex; flex-direction: column; align-items: center;">
-        <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="d450ca29-f7d3-40dd-92f2-c467691c3c6d" data-share-badge-host="https://www.credly.com"></div>
-      </div>
-      <div class="card" tabindex="0" style="display: flex; flex-direction: column; align-items: center;">
-        <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="01b9cfc3-123f-42dc-ba71-2a466a66c4cc" data-share-badge-host="https://www.credly.com"></div>
-      </div>
-      <div class="card" tabindex="0" style="display: flex; flex-direction: column; align-items: center;">
-        <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="775d2c37-657a-49d6-8850-6f8b33e66109" data-share-badge-host="https://www.credly.com"></div>
-      </div>
-      <div class="card" tabindex="0" style="display: flex; flex-direction: column; align-items: center;">
-        <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="43ebc748-efee-485b-8382-f24814e0073d" data-share-badge-host="https://www.credly.com"></div>
-      </div>
-    </div>
-    <script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
-  </div>
-</section>
-
-    <!-- Experience Section -->
-    <section
-      id="experience"
-      class="section"
-      tabindex="-1"
-      aria-label="Experience section"
-    >
-      <div class="overlay"></div>
-      <div class="content">
-        <h2>Experience</h2>
-        <div class="timeline">
-          <div class="timeline-item experience-item" tabindex="0">
-            <div class="timeline-dot"></div>
-            <div class="flex items-center mb-4">
-              <div>
-                <h3>Network and IT Support Intern</h3>
-                <p>Sri Lanka Rupavahini (TV) Corporation</p>
-              </div>
+        <div style="display:flex;align-items:center;justify-content:center;gap:12px;flex-direction:column">
+          <div style="background:var(--glass);padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.02);width:100%;max-width:420px">
+            <h3 style="margin:0 0 8px;font-size:1rem">Quick Stats</h3>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <div class="badge">Undergraduate</div>
+              <div class="badge">Network and IT Support</div>
+              <div class="badge">
+Trainee
+Sri Lanka Rupavahini (TV) Corporation ·</div>
             </div>
-            <p class="duration">June 2025 - Present • 1 month</p>
-            <p>Colombo, Western Province, Sri Lanka • On-site</p>
           </div>
-          <div class="timeline-item experience-item" tabindex="0">
-            <div class="timeline-dot"></div>
-            <div class="flex items-center mb-4">
-              <div>
-                <h3>Student</h3>
-                <p>Vavuniya Campus of the University of Jaffna</p>
-              </div>
-            </div>
-            <p class="duration">Sep 2021 - Present • 3 yrs 10 mos</p>
-            <p>Vavuniya District, Northern Province, Sri Lanka • On-site</p>
-          </div>
+          <!-- small network-related image -->
+          <figure style="margin:0;padding:0;width:100%;max-width:360px">
+            <img src="img/bg.jpg" alt="Network topology visualization" style="width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.03)" loading="lazy">
+            <figcaption style="font-size:0.8rem;color:var(--muted);margin-top:6px"></figcaption>
+          </figure>
         </div>
       </div>
     </section>
 
-    <!-- Contact Section -->
-    <section
-      id="contact"
-      class="section"
-      tabindex="-1"
-      aria-label="Contact section"
-    >
-      <div class="overlay"></div>
-      <div class="content">
-        <h2>Contact Me</h2>
-        <form action="https://api.web3forms.com/submit" method="POST">
-          <input type="hidden" name="access_key" value="ac04f87c-3523-4899-8ec6-a3e1764b38ed">
-          <input type="text" placeholder="Name" name="name" aria-label="Name" required />
-          <input type="email" placeholder="Email" name="email" aria-label="Email" required />
-          <textarea
-            placeholder="Message"
-            name="message"
-            aria-label="Message"
-            rows="5"
-            required
-          ></textarea>
-          <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
-          <button type="submit" aria-label="Send Message">Send</button>
-        </form>
+    <!-- CERTIFICATES (Cisco-style) -->
+    <section class="page-section reveal" data-reveal id="certificates" aria-labelledby="certHeading">
+      <h2 id="certHeading">Certificates & Training</h2>
+      <p style="color:var(--muted);margin-top:6px">Official network certifications and training highlights.</p>
+      <div class="cert-grid" style="margin-top:18px">
+        <article class="cert-card">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div class="cert-logo" aria-hidden="true"><i class="fa-solid fa-network-wired"></i></div>
+            <div>
+              <div class="cert-title">Cisco Certified Network Associate (CCNA)</div>
+              <div class="cert-meta">Routing & Switching fundamentals • Routing protocols • Security basics</div>
+            </div>
+          </div>
+          <div style="margin-top:10px;color:var(--muted);font-size:0.95rem">Issued: 2023 • Validated hands-on routing, switching and network fundamentals.</div>
+        </article>
+
+        <article class="cert-card">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div class="cert-logo" aria-hidden="true"><i class="fa-solid fa-shield-halved"></i></div>
+            <div>
+              <div class="cert-title">Cisco Certified Network Professional (CCNP)</div>
+              <div class="cert-meta">Advanced routing, VPNs, security, and design</div>
+            </div>
+          </div>
+          <div style="margin-top:10px;color:var(--muted);font-size:0.95rem">Issued: 2024 • In-depth network design and troubleshooting.</div>
+        </article>
+
+        <article class="cert-card">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div class="cert-logo" aria-hidden="true"><i class="fa-solid fa-certificate"></i></div>
+            <div>
+              <div class="cert-title">Network Automation Workshops</div>
+              <div class="cert-meta">Ansible, Python scripting for network ops</div>
+            </div>
+          </div>
+          <div style="margin-top:10px;color:var(--muted);font-size:0.95rem">Practical lab experience automating config tasks and telemetry collection.</div>
+        </article>
       </div>
     </section>
 
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        // Initialize Typed.js for typing animation
-        new Typed(".typed-text", {
-          strings: [
-            "Network Engineer",
-            "Network Administrator",
-            "System Engineer",
-            "Frontend Developer",
-          ],
-          typeSpeed: 100,
-          backSpeed: 50,
-          backDelay: 1200,
-          loop: true,
-          smartBackspace: true,
-        });
+    <!-- PROJECTS: grid & stack animations -->
+    <section class="page-section reveal" data-reveal id="projects" aria-labelledby="projectsHeading">
+      <h2 id="projectsHeading">Projects — Selected</h2>
+      <p style="color:var(--muted)">Interactive, network-focused tools and frontend visualizations. Click any item to view source or live demo.</p>
 
-        const sections = document.querySelectorAll(".section");
-        const dotWrappers = document.querySelectorAll(".dot-wrapper");
-        const floatingButtons = document.querySelector(".floating-buttons");
-        const body = document.body;
+      <div class="project-grid" style="margin-top:18px">
+        <!-- Example Project with GitHub link added -->
+        <div class="project">
+          <article class="project-card interactive-card" data-repo="https://github.com/Yasasisuru/portfolio">
+            <div class="project-thumb" aria-hidden="true">
+              <img src="https://images.unsplash.com/photo-1581092580494-7f7d2f8a5f06?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=c58e0a6e3f3b9f7ef96d1d0e30d0a2f6" alt="Project: Network dashboard screenshot" loading="lazy">
+            </div>
+            <h3 class="project-title">Interactive Network Dashboard</h3>
+            <p style="color:var(--muted);margin:6px 0 10px">Real-time device visualizer with topology mapping and simulated telemetry.</p>
+            <div class="stack-row" aria-hidden="true">
+              <div class="stack-pill"><i class="fa-brands fa-js"></i> JS</div>
+              <div class="stack-pill"><i class="fa-brands fa-react"></i> React</div>
+              <div class="stack-pill"><i class="fa-solid fa-satellite"></i> WebGL</div>
+            </div>
+            <div style="margin-top:12px;display:flex;gap:8px">
+              <a href="https://github.com/Yasasisuru/portfolio" class="btn" target="_blank" rel="noopener">View Repo <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.9rem"></i></a>
+            </div>
+          </article>
+        </div>
 
-        // Scroll and update active dot and floating buttons visibility
-        function onScroll() {
-          let currentSectionId = "home";
+        <!-- Project 2 -->
+        <div class="project">
+          <article class="project-card interactive-card" data-repo="#">
+            <div class="project-thumb">
+              <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=cd1b8d9a1f6ff9b9af3a8db8c7c2a2cf" alt="Project: packet visualization" loading="lazy">
+            </div>
+            <h3 class="project-title">Packet Flow Animator</h3>
+            <p style="color:var(--muted);margin:6px 0 10px">Animated packet flows on a 3D topology — great for demos and training.</p>
+            <div class="stack-row" aria-hidden="true">
+              <div class="stack-pill"><i class="fa-brands fa-js"></i> Three.js</div>
+              <div class="stack-pill"><i class="fa-brands fa-python"></i> Python API</div>
+            </div>
+          </article>
+        </div>
 
-          sections.forEach((section) => {
-            const rect = section.getBoundingClientRect();
-            if (
-              rect.top <= window.innerHeight / 2 &&
-              rect.bottom >= window.innerHeight / 2
-            ) {
-              currentSectionId = section.id;
-            }
-          });
+        <!-- Project 3 -->
+        <div class="project">
+          <article class="project-card interactive-card" data-repo="#">
+            <div class="project-thumb">
+              <img src="https://images.unsplash.com/photo-1518779578993-ec3579fee39f?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=be3b9a8cd5b1f824236a3b2f4e1f6d5f" alt="Project: automation" loading="lazy">
+            </div>
+            <h3 class="project-title">Network Automation Toolkit</h3>
+            <p style="color:var(--muted);margin:6px 0 10px">Ansible playbooks and scripts for common network tasks and backups.</p>
+            <div class="stack-row" aria-hidden="true">
+              <div class="stack-pill"><i class="fa-brands fa-python"></i> Python</div>
+              <div class="stack-pill"><i class="fa-brands fa-ansible"></i> Ansible</div>
+            </div>
+          </article>
+        </div>
 
-          dotWrappers.forEach((dot) => {
-            if (dot.dataset.section === currentSectionId) {
-              dot.classList.add("active");
-              dot.setAttribute("aria-current", "page");
-            } else {
-              dot.classList.remove("active");
-              dot.removeAttribute("aria-current");
-            }
-          });
+        <!-- Project 4 -->
+        <div class="project">
+          <article class="project-card interactive-card" data-repo="#">
+            <div class="project-thumb">
+              <img src="https://images.unsplash.com/photo-1535223289827-42f1e9919769?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=9b1b3a9f4f69c8b6c6d6a7d4b0c1d7a6" alt="Project: frontend visual" loading="lazy">
+            </div>
+            <h3 class="project-title">3D Topology Visualizer</h3>
+            <p style="color:var(--muted);margin:6px 0 10px">Portable 3D visualizer for network diagrams and animations.</p>
+            <div class="stack-row" aria-hidden="true">
+              <div class="stack-pill"><i class="fa-brands fa-js"></i> WebGL</div>
+              <div class="stack-pill"><i class="fa-solid fa-sitemap"></i> Topology</div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
 
-          // Hide floating buttons on home section
-          if (currentSectionId === "home") {
-            body.classList.add("home-visible");
-          } else {
-            body.classList.remove("home-visible");
+    <!-- CONTACT -->
+    <section class="page-section reveal" data-reveal id="contact" aria-labelledby="contactHeading" style="display:block;text-align:center">
+      <h2 id="contactHeading">Contact</h2>
+      <p style="color:var(--muted)">Want to collaborate? Connect on GitHub/LinkedIn or drop a message.</p>
+
+      <form class="contact-form" onsubmit="event.preventDefault(); alert('Form demo — integrate backend or mailto as needed.');" aria-label="Contact form">
+        <input class="input" type="text" placeholder="Your name" aria-label="Your name" required />
+        <input class="input" type="email" placeholder="Your email" aria-label="Your email" required />
+        <input class="input" type="text" placeholder="Subject" aria-label="Subject" />
+        <textarea class="input" rows="5" placeholder="Message" aria-label="Message"></textarea>
+        <div style="display:flex;gap:10px;align-items:center;justify-content:flex-start">
+          <button class="btn" type="submit"><i class="fa-solid fa-paper-plane"></i> Send Message</button>
+          <a class="btn" href="mailto:your-email@example.com" style="background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted)"><i class="fa-solid fa-envelope"></i> Email</a>
+        </div>
+      </form>
+    </section>
+
+  </main>
+
+  <!-- Floating social buttons bottom-left (visible, accessible) -->
+  <nav class="social-fixed" aria-label="Social links">
+    <a class="social-btn" href="https://github.com/Yasasisuru" target="_blank" rel="noopener noreferrer" aria-label="GitHub Repository">
+      <i class="fa-brands fa-github"></i><span class="label">GitHub</span>
+    </a>
+    <a class="social-btn" href="https://linkedin.com/in/YOUR-LINKEDIN" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile">
+      <i class="fa-brands fa-linkedin-in"></i><span class="label">LinkedIn</span>
+    </a>
+  </nav>
+
+  <!-- --------------------- Scripts --------------------- -->
+  <script>
+    /*******************************
+     * Utility: reveal on scroll
+     *******************************/
+    (function(){
+      const revealEls = document.querySelectorAll('[data-reveal]');
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            e.target.classList.remove('reveal');
+            obs.unobserve(e.target);
           }
-        }
-
-        // Scroll to section on dot click
-        dotWrappers.forEach((dot) => {
-          dot.addEventListener("click", () => {
-            const targetSection = document.getElementById(dot.dataset.section);
-            if (targetSection) {
-              targetSection.focus({ preventScroll: true });
-              targetSection.scrollIntoView({ behavior: "smooth" });
-            }
-          });
-          dot.addEventListener("keydown", (e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              dot.click();
-            }
-          });
         });
+      }, { threshold: 0.08 });
+      revealEls.forEach(el => {
+        el.classList.add('reveal');
+        obs.observe(el);
+      });
+    })();
 
-        window.addEventListener("scroll", onScroll);
-        window.addEventListener("load", onScroll);
+    /*******************************
+     * Typed.js initialization
+     *******************************/
+    document.addEventListener('DOMContentLoaded', () => {
+      // Ensure typed library is loaded
+      if (window.Typed) {
+        const typedEl = document.querySelector('.typed-text');
+        // Provided stack: Network Engineer, Network Administrator, System Engineer, Frontend Developer
+        new Typed(typedEl, {
+          strings: ["Network Engineer","IT Support", "Network Administrator", "System Engineer", "Frontend Developer"],
+          typeSpeed: 50,
+          backSpeed: 30,
+          backDelay: 1400,
+          smartBackspace: true,
+          loop: true,
+          showCursor: true,
+          cursorChar: '|'
+        });
+      }
+    });
 
-        // Intersection Observer for contact and experience section animation
-        const animatedSections = document.querySelectorAll("#contact, #experience");
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                entry.target.classList.remove("go-out");
-                entry.target.classList.add("come-in");
-              } else {
-                entry.target.classList.remove("come-in");
-                entry.target.classList.add("go-out");
-              }
-            });
-          },
-          { threshold: 0.1 }
-        );
-        animatedSections.forEach((section) => observer.observe(section));
+    /*******************************
+     * Interactive tilt for project cards
+     *******************************/
+    (function(){
+      const cards = document.querySelectorAll('.interactive-card');
+      cards.forEach(card => {
+        card.addEventListener('mousemove', e => {
+          const r = card.getBoundingClientRect();
+          const px = (e.clientX - r.left) / r.width;
+          const py = (e.clientY - r.top) / r.height;
+          const rotateY = (px - 0.5) * 10; // left/right tilt
+          const rotateX = (0.5 - py) * 8;  // up/down tilt
+          card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.01)`;
+        });
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = '';
+        });
+        card.addEventListener('mousedown', () => {
+          card.style.transform += ' translateZ(-6px)';
+        });
+        card.addEventListener('mouseup', () => {
+          card.style.transform = '';
+        });
+      });
+    })();
+
+    /*******************************
+     * CSS background stars + comets generator
+     * creates many subtle drifting stars (opacity 60%) and periodic comets
+     *******************************/
+    (function(){
+      const decor = document.getElementById('bg-decor');
+      if (!decor) return;
+
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+
+      // adaptive star count (keeps performance in mind)
+      const starCount = Math.min(600, Math.max(80, Math.floor((w * h) / 16000)));
+
+      for (let i = 0; i < starCount; i++) {
+        const s = document.createElement('div');
+        s.className = 'bg-star';
+        const size = (Math.random() * 2.5) + 0.6; // px
+        const left = Math.random() * 100;
+        const top = Math.random() * 100;
+
+        // random drift offsets (use vw/vh for cross-device motion)
+        const moveX = ((Math.random() * 2 - 1) * (10 + Math.random() * 40)) + 'vw';
+        const moveY = ((Math.random() * 2 - 1) * (6 + Math.random() * 30)) + 'vh';
+        const duration = 20 + Math.random() * 90; // seconds
+        const delay = Math.random() * -duration; // start at random phase
+
+        s.style.left = left + '%';
+        s.style.top = top + '%';
+        s.style.width = size + 'px';
+        s.style.height = size + 'px';
+        s.style.opacity = 'var(--star-opacity)';
+        s.style.setProperty('--moveX', moveX);
+        s.style.setProperty('--moveY', moveY);
+        s.style.animationDuration = `${duration}s, ${6 + Math.random()*10}s`; // drift + twinkle
+        s.style.animationDelay = `${delay}s, ${Math.random()*-10}s`;
+        decor.appendChild(s);
+      }
+
+      // Create periodic CSS comets (longer streaks that fly across)
+      const cometTotal = 6;
+      for (let i = 0; i < cometTotal; i++) {
+        createCssComet();
+      }
+
+      // spawn extra comets intermittently
+      setInterval(() => {
+        if (Math.random() < 0.6) createCssComet();
+      }, 3000);
+
+      function createCssComet() {
+        const c = document.createElement('div');
+        c.className = 'css-comet';
+        const startX = Math.random() * 120 - 10; // -10% .. 110% (vw)
+        const startY = Math.random() * 120 - 10; // -10% .. 110% (vh)
+        // end positions: move across screen
+        const endX = (Math.random() * 140 - 70) + 'vw';
+        const endY = (Math.random() * 120 - 60) + 'vh';
+        const angle = (Math.random() * 60 - 30) + 'deg';
+        const dur = 3 + Math.random() * 4; // seconds
+
+        // tail length scaled by width so it appears like a streak
+        const tail = 18 + Math.random() * 48; // px
+        c.style.width = tail + 'px';
+        c.style.height = (2 + Math.random() * 2) + 'px';
+
+        // set CSS variables used inside animation
+        c.style.setProperty('--sx', startX + 'vw');
+        c.style.setProperty('--sy', startY + 'vh');
+        c.style.setProperty('--ex', endX);
+        c.style.setProperty('--ey', endY);
+        c.style.setProperty('--angle', angle);
+        c.style.left = '0'; c.style.top = '0';
+        c.style.opacity = 0;
+        c.style.animation = `cssCometFly ${dur}s linear forwards`;
+        decor.appendChild(c);
+
+        // remove after animation finishes to avoid DOM bloat
+        setTimeout(()=> {
+          if (c && c.parentNode) c.parentNode.removeChild(c);
+        }, (dur + 0.1) * 1000);
+      }
+
+      // keep elements responsive on resize (optional)
+      window.addEventListener('resize', () => {
+        // you could tune behavior here (not removing to keep simple)
+      });
+    })();
+
+    /*******************************
+     * Three.js: starfield, comet, and satellite group
+     * pointer tracking rotates the satellite
+     *******************************/
+    document.addEventListener('DOMContentLoaded', () => {
+      // Guard if three.js isn't available
+      if (!window.THREE) return;
+      const overlay = document.getElementById('three-overlay');
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+      renderer.setPixelRatio(window.devicePixelRatio || 1);
+      renderer.setSize(w, h);
+      renderer.domElement.style.width = '100%';
+      renderer.domElement.style.height = '100%';
+      overlay.appendChild(renderer.domElement);
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(55, w / h, 0.1, 2000);
+      camera.position.set(0, 0, 300);
+
+      // Starfield (Points)
+      const starCount = Math.min(1600, Math.floor((w*h)/300)); // adaptive count
+      const starsGeo = new THREE.BufferGeometry();
+      const positions = new Float32Array(starCount * 3);
+      for (let i = 0; i < starCount; i++) {
+        const r = 800 + Math.random() * 600;
+        const theta = Math.random() * Math.PI * 2;
+        const phi = Math.acos((Math.random() * 2) - 1);
+        positions[i*3] = r * Math.sin(phi) * Math.cos(theta);
+        positions[i*3+1] = r * Math.sin(phi) * Math.sin(theta);
+        positions[i*3+2] = r * Math.cos(phi);
+      }
+      starsGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      const starMat = new THREE.PointsMaterial({ size: 1.6, transparent: true, opacity: 0.6, color: 0xffffff });
+      const starPoints = new THREE.Points(starsGeo, starMat);
+      scene.add(starPoints);
+
+      // subtle rotating satellite object (composed geometry)
+      const satellite = new THREE.Group();
+      // core (box)
+      const boxGeom = new THREE.BoxGeometry(30, 18, 10);
+      const boxMat = new THREE.MeshStandardMaterial({ color: 0xb6f0ff, emissive: 0x0b3240, metalness: 0.55, roughness: 0.3 });
+      const core = new THREE.Mesh(boxGeom, boxMat);
+      satellite.add(core);
+      // antenna bars
+      const barGeom = new THREE.BoxGeometry(2, 40, 2);
+      const barMat = new THREE.MeshStandardMaterial({ color: 0x9be3ff, metalness: 0.3, roughness: 0.4 });
+      const bar1 = new THREE.Mesh(barGeom, barMat); bar1.position.set(22, 0, 0); bar1.rotation.z = 0.2;
+      const bar2 = bar1.clone(); bar2.position.set(-22, 0, 0); bar2.rotation.z = -0.2;
+      satellite.add(bar1, bar2);
+
+      // solar panel-ish planes
+      const panelGeom = new THREE.PlaneGeometry(60, 22);
+      const panelMat = new THREE.MeshStandardMaterial({ color: 0x0a2a3b, side: THREE.DoubleSide, emissive: 0x002033, metalness:0.2, roughness:0.9 });
+      const p1 = new THREE.Mesh(panelGeom, panelMat); p1.position.set(0, -20, -6); p1.rotation.x = -0.2;
+      const p2 = p1.clone(); p2.position.set(0, -20, 6); p2.rotation.x = 0.2;
+      satellite.add(p1, p2);
+
+      satellite.position.set(120, -80, -50); // place near top-right corner visually
+      scene.add(satellite);
+
+      // subtle ambient + point light
+      const amb = new THREE.AmbientLight(0xffffff, 0.15);
+      scene.add(amb);
+      const point = new THREE.PointLight(0xa9f5ff, 0.9, 800);
+      point.position.set(100, 100, 200);
+      scene.add(point);
+
+      // comet (a small bright moving point with trail using sprite)
+      const cometGeo = new THREE.SphereGeometry(1.8, 8, 8);
+      const cometMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+      const comet = new THREE.Mesh(cometGeo, cometMat);
+      scene.add(comet);
+      let cometProgress = 0;
+
+      // pointer tracking for satellite rotation (parallax)
+      let mouseX = 0, mouseY = 0;
+      window.addEventListener('mousemove', (e) => {
+        const nx = (e.clientX / window.innerWidth) * 2 - 1;
+        const ny = (e.clientY / window.innerHeight) * 2 - 1;
+        mouseX = nx; mouseY = ny;
       });
 
-      // Hide preloader when page is fully loaded
-      window.addEventListener('load', () => {
-        const preloader = document.getElementById('preloader');
-        preloader.classList.add('hidden');
-        setTimeout(() => {
-          preloader.style.display = 'none';
-        }, 200);
+      // responsiveness
+      window.addEventListener('resize', () => {
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
       });
-    </script>
-  </body>
+
+      // animation loop
+      const clock = new THREE.Clock();
+      function animate(){
+        requestAnimationFrame(animate);
+        const t = clock.getElapsedTime();
+
+        // rotate starfield slowly
+        starPoints.rotation.y += 0.0005;
+
+        // rotate satellite using pointer (interpolated)
+        satellite.rotation.x += (mouseY * 0.6 - satellite.rotation.x) * 0.04;
+        satellite.rotation.y += (mouseX * 0.6 - satellite.rotation.y) * 0.04;
+        satellite.rotation.z = Math.sin(t*0.6) * 0.06;
+
+        // comet movement (cyclical)
+        cometProgress += 0.0045;
+        const cx = Math.cos(cometProgress*2.1) * 1200;
+        const cy = Math.sin(cometProgress*1.2) * 400;
+        const cz = Math.sin(cometProgress*0.7) * 400 - 200;
+        comet.position.set(cx, cy, cz);
+        comet.material.opacity = Math.max(0, 1.0 - Math.abs(Math.sin(cometProgress*1.2))*0.9);
+
+        // subtle camera drift
+        camera.position.x += (mouseX*90 - camera.position.x) * 0.02;
+        camera.position.y += (-mouseY*60 - camera.position.y) * 0.02;
+
+        renderer.render(scene, camera);
+      }
+      animate();
+    });
+  </script>
+</body>
 </html>
