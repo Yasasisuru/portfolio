@@ -1,175 +1,424 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <title>Me.isuru</title>
-   <link rel="icon" type="image/x-icon" href="img/1744600873392.ico">
+  <link rel="icon" type="image/x-icon" href="img/1744600873392.ico" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="description" content="Yasasisuru - Network Engineer, System Engineer & Frontend Developer. Space-themed portfolio with 3D visuals and interactive projects." />
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet" />
 
-  <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-  <!-- Typed.js for the typewriter role animation -->
   <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js" defer></script>
 
-  <!-- Three.js for 3D model, starfield & comet animations -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js" defer></script>
 
   <style>
-    :root{
-      --bg-900:#03030a;
-      --accent:#7be3ff;
-      --accent-2:#9b8cff;
-      --muted:#9aa3b2;
+    :root {
+      --bg-900: #03030a;
+      --accent: #7be3ff;
+      --accent-2: #9b8cff;
+      --muted: #9aa3b2;
       --glass: rgba(255, 255, 255, 0.104);
-      --glass-2: rgba(255,255,255,0.03);
-      --card-border: rgba(255,255,255,0.06);
-      --star-opacity: 0.6; /* requested 60% opacity for background stars */
+      --glass-2: rgba(255, 255, 255, 0.03);
+      --card-border: rgba(255, 255, 255, 0.06);
+      --star-opacity: 0.6;
       --max-width: 1200px;
       --radius: 14px;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg-900),#000 60%);color:#eaf6ff;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;}
-    a{color:inherit}
-    main{position:relative;z-index:2;max-width:var(--max-width);margin:0 auto;padding:48px 20px 120px}
-    header.site-brand{display:flex;align-items:center;gap:12px;margin-bottom:28px;user-select:none}
+
+    .audiowide-font {
+      font-family: "Audiowide", sans-serif;
+    }
+
+    .roboto-mono-font {
+      font-family: "Roboto Mono", monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      background: linear-gradient(180deg, var(--bg-900), #000 60%);
+      color: #eaf6ff;
+      font-family: sans-serif,serif;
+    }
+    body .h1{
+      text-align: center;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    main {
+      position: relative;
+      z-index: 2;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 48px 20px 120px;
+    }
+
+    header.site-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+      user-select: none;
+    }
+
     header .logo {
-      display:flex;align-items:center;gap:10px;
-      background:linear-gradient(135deg,var(--accent),var(--accent-2));
-      padding:8px 12px;border-radius:10px;color:#021428;font-weight:700;box-shadow:0 6px 24px rgba(43,124,156,0.12);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      padding: 8px 12px;
+      border-radius: 10px;
+      color: #021428;
+      font-weight: 700;
+      box-shadow: 0 6px 24px rgba(43, 124, 156, 0.12);
     }
 
     /* --- Hero (Home) --- */
     .hero {
-      display:grid;
+      display: grid;
       grid-template-columns: 1fr 1fr;
-      gap:30px;
-      align-items:center;
-      padding:44px;
-      border-radius:var(--radius);
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      gap: 30px;
+      align-items: center;
+      padding: 44px;
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
       border: 1px solid var(--card-border);
-      box-shadow: 0 12px 50px rgba(2,6,23,0.6);
-      position:relative;
-      overflow:hidden;
+      box-shadow: 0 12px 50px rgba(2, 6, 23, 0.6);
+      position: relative;
+      overflow: hidden;
       backdrop-filter: blur(6px);
     }
 
     /* Left: your image (one side as requested) */
-    .hero .avatar-wrap{
-      display:flex;align-items:center;justify-content:center;
-      padding:18px;
+    .hero .avatar-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
     }
+
     .avatar {
-      width:100%;
-      max-width:320px;
-      aspect-ratio:1/1;
-      border-radius:22px;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,0.06);
-      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+      width: 100%;
+      max-width: 320px;
+      aspect-ratio: 1/1;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
       transform: translateZ(0);
     }
-    .avatar img{width:100%;height:100%;object-fit:cover;display:block;filter:contrast(1.05) saturate(1.03)}
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: contrast(1.05) saturate(1.03);
+    }
 
     /* Right: text & typed stack */
-    .hero .hero-copy{padding:8px}
-    .hero h1{font-family:"Space Grotesk",Inter, sans-serif;font-size:clamp(30px,4.4vw,48px);margin:0 0 8px}
-    .hero p.lead{margin:0 0 16px;color:var(--muted);font-size:1rem;line-height:1.4}
-    .typed-line{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-    .typed-line .typed-label{font-size:0.90rem;color:var(--muted);padding:6px 10px;background:var(--glass);border-radius:999px;border:1px solid rgba(255,255,255,0.03)}
-    .typed-text{font-weight:700;font-size:1.05rem;color:var(--accent);min-height:26px}
+    .hero .hero-copy {
+      padding: 8px;
+    }
+
+    .hero h1 {
+      font-family: "Audiowide", sans-serif;
+      font-size: clamp(30px, 4.4vw, 48px);
+      margin: 0 0 8px;
+    }
+
+    .hero p.lead {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+
+    .typed-line {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .typed-line .typed-label {
+      font-size: 0.9rem;
+      color: var(--muted);
+      padding: 6px 10px;
+      background: var(--glass);
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .typed-text {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--accent);
+      min-height: 26px;
+    }
 
     /* Hero quick badges */
-    .badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
-    .badge{background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:8px 10px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);font-size:0.88rem;color:var(--muted)}
+    .badges {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    .badge {
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+      padding: 8px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
 
     /* Sections */
-    section.page-section{margin-top:36px;padding:36px;border-radius:var(--radius);background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.008));border:1px solid var(--card-border)}
-    section h2{margin:0 0 16px;font-size:1.2rem;color:#d9f7ff}
-    .section-row{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;align-items:start}
+    section.page-section {
+      margin-top: 36px;
+      padding: 36px;
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.008));
+      border: 1px solid var(--card-border);
+    }
+
+    section h2 {
+      font-family: "Audiowide", sans-serif;
+      margin: 0 0 16px;
+      font-size: 1.2rem;
+      color: #d9f7ff;
+    }
+
+    .section-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      align-items: start;
+    }
 
     /* Certificates (Cisco style cards) */
-    .cert-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
-    .cert-card{
-      padding:16px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(255,255,255,0.02));
-      border:1px solid rgba(255,255,255,0.03);
-      box-shadow: 0 8px 30px rgba(0,0,0,0.45);
-      transition:transform .35s ease, box-shadow .35s ease;
-      display:flex;flex-direction:column;gap:8px;
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
     }
-    .cert-card:hover{transform:translateY(-8px);box-shadow:0 20px 60px rgba(19,34,72,0.6)}
-    .cert-card .cert-logo{width:56px;height:40px;border-radius:8px;background:linear-gradient(90deg,#0f1016,#1a1b2a);display:flex;align-items:center;justify-content:center;color:var(--accent);font-weight:700}
-    .cert-title{font-weight:700;color:#e9fbff}
-    .cert-meta{font-size:0.9rem;color:var(--muted)}
+
+    .cert-card {
+      padding: 16px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.02));
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .cert-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 60px rgba(19, 34, 72, 0.6);
+    }
+
+    .cert-card .cert-logo {
+      width: 56px;
+      height: 40px;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #0f1016, #1a1b2a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .cert-title {
+      font-weight: 700;
+      color: #e9fbff;
+    }
+
+    .cert-meta {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
 
     /* Projects grid with interactive tilt & stack animation */
-    .project-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+    }
+
     .project {
-      perspective:1200px;
+      perspective: 1200px;
     }
-    .project-card{
-      border-radius:12px;padding:16px;background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
-      border:1px solid rgba(255,255,255,0.03);
-      transition:transform .2s ease, box-shadow .25s ease;
-      transform-style:preserve-3d;
-      box-shadow: 0 12px 30px rgba(3,6,14,0.6);
-      overflow:hidden;
+
+    .project-card {
+      border-radius: 12px;
+      padding: 16px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.015), rgba(255, 255, 255, 0.01));
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      transition: transform 0.2s ease, box-shadow 0.25s ease;
+      transform-style: preserve-3d;
+      box-shadow: 0 12px 30px rgba(3, 6, 14, 0.6);
+      overflow: hidden;
     }
-    .project-thumb{width:100%;height:140px;border-radius:10px;overflow:hidden;margin-bottom:10px;background:#071225;display:block}
-    .project-thumb img{width:100%;height:100%;object-fit:cover;display:block}
-    .project-title{font-weight:700;margin:0 0 6px}
-    .stack-row{display:flex;gap:8px;flex-wrap:wrap}
-    .stack-pill{padding:6px 8px;border-radius:999px;background:rgba(255,255,255,0.03);font-size:0.8rem;border:1px solid rgba(255,255,255,0.02)}
+
+    .project-thumb {
+      width: 100%;
+      height: 140px;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 10px;
+      background: #071225;
+      display: block;
+    }
+
+    .project-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .project-title {
+      font-weight: 700;
+      margin: 0 0 6px;
+    }
+
+    .stack-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .stack-pill {
+      padding: 6px 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.03);
+      font-size: 0.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.02);
+    }
 
     /* Contact form */
-    .contact-form{display:grid;gap:12px;grid-template-columns:repeat(1,1fr);max-width:640px;margin:0 auto}
-    .input,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:rgba(255,255,255,0.01);color:#eaf6ff}
-    .btn{
-      display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;background:linear-gradient(90deg,var(--accent),var(--accent-2));
-      color:#021428;border:0;font-weight:700;cursor:pointer;box-shadow:0 8px 28px rgba(155,140,255,0.12)
+    .contact-form {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(1, 1fr);
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .input,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      background: rgba(255, 255, 255, 0.01);
+      color: #eaf6ff;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      color: #021428;
+      border: 0;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 28px rgba(155, 140, 255, 0.12);
     }
 
     /* Floating social buttons bottom-left (horizontal) - visible and accessible */
-    .social-fixed{
-      position:fixed;left:18px;bottom:18px;display:flex;gap:10px;align-items:center;z-index:9999;
-      
+    .social-fixed {
+      position: fixed;
+      left: 18px;
+      bottom: 18px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      z-index: 9999;
     }
-    .social-btn{
-      display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;background:linear-gradient(90deg,#041626,rgba(255,255,255,0.02));
-      color:#eaf6ff;text-decoration:none;border:1px solid rgba(255,255,255,0.04);box-shadow:0 6px 20px rgba(0,0,0,0.6);font-weight:600;font-size:0.92rem;
-      transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+
+    .social-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #041626, rgba(255, 255, 255, 0.02));
+      color: #eaf6ff;
+      text-decoration: none;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+      font-weight: 600;
+      font-size: 0.92rem;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
     }
-    .social-btn i{font-size:18px}
-    .social-btn:focus,.social-btn:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(12,28,45,0.55)}
-    .social-btn .label{display:inline-block}
+
+    .social-btn i {
+      font-size: 18px;
+    }
+
+    .social-btn:focus,
+    .social-btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 40px rgba(12, 28, 45, 0.55);
+    }
+
+    .social-btn .label {
+      display: inline-block;
+    }
 
     /* Three.js overlay container for starfield & satellite */
     #three-overlay {
-      position:fixed;inset:0;z-index:1;pointer-events:none;opacity:1;
-      mix-blend-mode:screen;
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 1;
+      mix-blend-mode: screen;
     }
 
     /* Background decorative layer for CSS stars and comets (full-screen) */
     .bg-decor {
-      position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;
-      opacity:1;
-      mix-blend-mode:screen;
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+      opacity: 1;
+      mix-blend-mode: screen;
     }
 
     /* small CSS drifting stars (many tiny dots that slowly drift) */
     .bg-star {
-      position:absolute;
-      border-radius:50%;
+      position: absolute;
+      border-radius: 50%;
       background: #ffffff;
       opacity: var(--star-opacity);
       filter: blur(0.2px);
-      pointer-events:none;
-      transform: translate3d(0,0,0);
+      pointer-events: none;
+      transform: translate3d(0, 0, 0);
       will-change: transform, opacity;
       animation-name: drift, twinkle;
       animation-iteration-count: infinite;
@@ -177,555 +426,561 @@
     }
 
     @keyframes drift {
-      0% { transform: translate3d(0, 0, 0) }
-      50% { transform: translate3d(var(--moveX), var(--moveY), 0) }
-      100% { transform: translate3d(0, 0, 0) }
+      0% {
+        transform: translate3d(0, 0, 0);
+      }
+
+      50% {
+        transform: translate3d(var(--moveX), var(--moveY), 0);
+      }
+
+      100% {
+        transform: translate3d(0, 0, 0);
+      }
     }
+
     /* slight opacity flicker for more natural stars */
     @keyframes twinkle {
-      0% { opacity: calc(var(--star-opacity) * 0.8) }
-      40% { opacity: calc(var(--star-opacity) * 1.0) }
-      100% { opacity: calc(var(--star-opacity) * 0.85) }
+      0% {
+        opacity: calc(var(--star-opacity) * 0.8);
+      }
+
+      40% {
+        opacity: calc(var(--star-opacity) * 1);
+      }
+
+      100% {
+        opacity: calc(var(--star-opacity) * 0.85);
+      }
     }
 
     /* Comet (CSS) - longer streak elements that fly across screen */
     .css-comet {
-      position:absolute;
-      width:2px;
-      height:2px;
-      border-radius:50%;
-      background: linear-gradient(90deg, rgba(255,255,255,1), rgba(255,255,255,0));
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      border-radius: 50%;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
       filter: blur(0.6px);
-      pointer-events:none;
+      pointer-events: none;
       transform-origin: center;
       will-change: transform, opacity;
     }
+
     @keyframes cssCometFly {
-      0% { transform: translate3d(var(--sx), var(--sy), 0) rotate(var(--angle)) scaleX(1); opacity:0; }
-      8% { opacity: 1; }
-      65% { transform: translate3d(var(--ex), var(--ey), 0) rotate(var(--angle)) scaleX(2); opacity:0.8; }
-      100% { transform: translate3d(calc(var(--ex) + 10vw), calc(var(--ey) + 6vh), 0) rotate(var(--angle)) scaleX(2.2); opacity:0; }
+      0% {
+        transform: translate3d(var(--sx), var(--sy), 0) rotate(var(--angle)) scaleX(1);
+        opacity: 0;
+      }
+
+      8% {
+        opacity: 1;
+      }
+
+      65% {
+        transform: translate3d(var(--ex), var(--ey), 0) rotate(var(--angle)) scaleX(2);
+        opacity: 0.8;
+      }
+
+      100% {
+        transform: translate3d(calc(var(--ex) + 10vw), calc(var(--ey) + 6vh), 0) rotate(var(--angle)) scaleX(2.2);
+        opacity: 0;
+      }
     }
+
     /* Preloader overlay */
-#preloader {
-  position: fixed;
-  inset: 0; /* top:0; right:0; bottom:0; left:0; */
-  background: #03030a;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 99999;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
-}
+    #preloader {
+      position: fixed;
+      inset: 0;
+      background: #03030a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 99999;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
 
-/* Spinner animation */
-.spinner {
-  width: 60px;
-  height: 60px;
-  border: 6px solid rgba(255,255,255,0.2);
-  border-top-color: #7be3ff;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
+    /* Spinner animation */
+    .spinner {
+      width: 60px;
+      height: 60px;
+      border: 6px solid rgba(255, 255, 255, 0.2);
+      border-top-color: #7be3ff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
 
-/* Hide preloader after loaded */
-#preloader.hide {
-  opacity: 0;
-  visibility: hidden;
-}
-
+    /* Hide preloader after loaded */
+    #preloader.hide {
+      opacity: 0;
+      visibility: hidden;
+    }
 
     /* small responsive tweaks */
     @media (max-width: 900px) {
-      .hero{grid-template-columns: 1fr; padding:18px}
-      .section-row{grid-template-columns:1fr}
-      main{padding:22px 14px 120px}
-      .social-btn .label{display:none} /* show icons only on mobile */
-      .avatar{max-width:260px}
-      .hero h1{font-size:28px}
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 18px;
+      }
+
+      .section-row {
+        grid-template-columns: 1fr;
+      }
+
+      main {
+        padding: 22px 14px 120px;
+      }
+
+      .social-btn .label {
+        display: none;
+      }
+
+      .avatar {
+        max-width: 260px;
+      }
+
+      .hero h1 {
+        font-size: 28px;
+      }
     }
 
     /* subtle fade-in used by JS to reveal sections */
-    .reveal{opacity:0;transform:translateY(6px);transition:opacity .7s ease, transform .6s ease}
-    .reveal.visible{opacity:1;transform:none}
+    .reveal {
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.7s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* Contact form styling */
+    #contactForm input,
+    #contactForm textarea {
+      width: 100%;
+      padding: 12px 15px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      font-size: 1rem;
+      transition: border-color 0.3s ease, background 0.3s ease;
+    }
+
+    #contactForm input::placeholder,
+    #contactForm textarea::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    #contactForm input:focus,
+    #contactForm textarea:focus {
+      outline: none;
+      border-color: #1e90ff;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Animated button */
+    .animated-btn {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      background: #1e90ff;
+      color: #fff;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 6px;
+      font-size: 1.1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      animation: pulse 2s infinite;
+    }
+
+    .animated-btn i {
+      transition: transform 0.3s ease;
+    }
+
+    .animated-btn:hover {
+      background: #0099ff;
+    }
+
+    .animated-btn:active {
+      animation: none;
+      transform: scale(0.95);
+      box-shadow: 0 0 8px 2px rgba(30, 144, 255, 0.5);
+    }
+
+    /* Pulse animation */
+    @keyframes pulse {
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgba(30, 144, 255, 0.3);
+        transform: scale(1);
+      }
+
+      50% {
+        box-shadow: 0 0 15px 5px rgba(30, 144, 255, 0.3);
+        transform: scale(1.03);
+      }
+    }
+
+    /* Footer links hover */
+    footer a {
+      color: rgba(255, 255, 255, 0.6);
+      transition: color 0.3s ease;
+    }
+
+    footer a:hover {
+      color: #1e90ff;
+    }
   </style>
 </head>
-<body>
-  <!-- Preloader -->
-<div id="preloader">
-  <div class="spinner"></div>
-</div>
 
-  <!-- Decorative background DOM layer (CSS-driven stars + comets) -->
+<body class="roboto-mono-font">
+  <div id="preloader">
+    <div class="spinner"></div>
+  </div>
+
   <div class="bg-decor" id="bg-decor" aria-hidden="true"></div>
 
-  <!-- Three.js overlay (starfield + comet + satellite) -->
   <div id="three-overlay" aria-hidden="true"></div>
 
   <main>
     <header class="site-brand" aria-hidden="false">
-      <div class="logo"><i class="fa-solid fa-network-wired"></i> isuru</div>
-      <div style="color:var(--muted);font-size:0.95rem;margin-left:auto">Network and IT Help</div>
+      <div class="logo audiowide-font"><i class="fa-solid fa-network-wired"></i> isuru</div>
+      <div style="color: var(--muted); font-size: 0.95rem; margin-left: auto">Network and IT Help</div>
     </header>
 
-    <!-- HERO / Home -->
     <section class="hero" aria-labelledby="homeHeading" id="home">
-      <!-- left: avatar (user image) -->
       <div class="avatar-wrap reveal" data-reveal>
         <div class="avatar" title="Yasasisuru (profile)">
-          <!-- GitHub avatar auto-resolve -->
           <img src="img/profile.png" alt="Profile photo of Yasasisuru" loading="lazy" />
         </div>
       </div>
 
-      <!-- right: copy + typed roles -->
       <div class="hero-copy reveal" data-reveal>
-        <h1 id="homeHeading">Hi - I'm <span style="color:var(--accent)">Yasas isuru</span></h1>
+        <h1 id="homeHeading" class="audiowide-font">Hi-I'm <span style="color: var(--accent)">Yasas isuru</span></h1>
         <p class="lead">Currently, I am undergoing industrial training at Sri Lanka Rupavahini Corporation, where I am gaining practical experience in networking and IT support.</p>
 
         <div class="typed-line" aria-live="polite">
           <div class="typed-label"><i class="fa-solid fa-rocket"></i> Role</div>
           <div class="typed-text" aria-hidden="false"></div>
         </div>
-
-       
       </div>
     </section>
 
-    <!-- ABOUT -->
     <section class="page-section reveal" data-reveal id="about" aria-labelledby="aboutHeading">
-      <h2 id="aboutHeading">About</h2>
+      <h1 id="aboutHeading" class="audiowide-font">About</h1>
       <div class="section-row">
         <div>
           <p>I am a BICT student at Vavuniya Campus, University of Jaffna, with a strong interest in engineering technology. I completed my GCE (A/L) at Ibbagamuwa Central College and hold certifications in Python for Beginners, Introduction to IoT, and Python Essentials 1. My skills include Python programming, networking, and Packet Tracer. Currently, I am gaining practical experience in networking and IT support through industrial training at Sri Lanka Rupavahini Corporation and am eager to apply my knowledge to real-world ICT projects.</p>
 
-          <ul style="list-style:none;padding-left:0;margin-top:12px;color:var(--muted)">
-            <li><i class="fa-solid fa-check-double" style="color:var(--accent)"></i> Networking</li>
-            <li><i class="fa-solid fa-check-double" style="color:var(--accent)"></i> IT Help</li>
-            <li><i class="fa-solid fa-check-double" style="color:var(--accent)"></i> Frontend (HTML/CSS/Angular)</li>
+          <ul style="list-style: none; padding-left: 0; margin-top: 12px; color: var(--muted)">
+            <li><i class="fa-solid fa-check-double" style="color: var(--accent)"></i> Networking</li>
+            <li><i class="fa-solid fa-check-double" style="color: var(--accent)"></i> IT Help</li>
+            <li><i class="fa-solid fa-check-double" style="color: var(--accent)"></i> Frontend (HTML/CSS/Angular)</li>
           </ul>
         </div>
-        <div style="display:flex;align-items:center;justify-content:center;gap:12px;flex-direction:column">
-          <div style="background:var(--glass);padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.02);width:100%;max-width:420px">
-            <h3 style="margin:0 0 8px;font-size:1rem">Quick Stats</h3>
-            <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <div style="display: flex; align-items: center; justify-content: center; gap: 12px; flex-direction: column">
+          <div style="background: var(--glass); padding: 14px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.02); width: 100%; max-width: 420px">
+            <h3 style="margin: 0 0 8px; font-size: 1rem" class="audiowide-font">Quick Stats</h3>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap">
               <div class="badge">Undergraduate</div>
               <div class="badge">Network and IT Support</div>
-              <div class="badge">
-Trainee
-Sri Lanka Rupavahini (TV) Corporation ·</div>
+              <div class="badge">Trainee Sri Lanka Rupavahini (TV) Corporation ·</div>
             </div>
           </div>
-          <!-- small network-related image -->
-          <figure style="margin:0;padding:0;width:100%;max-width:360px">
-            <img src="img/bg.jpg" alt="Network topology visualization" style="width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.03)" loading="lazy">
-            <figcaption style="font-size:0.8rem;color:var(--muted);margin-top:6px"></figcaption>
+          <figure style="margin: 0; padding: 0; width: 100%; max-width: 360px">
+            <img src="img/bg.jpg" alt="Network topology visualization" style="width: 100%; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.03)" loading="lazy" />
+            <figcaption style="font-size: 0.8rem; color: var(--muted); margin-top: 6px"></figcaption>
           </figure>
         </div>
       </div>
     </section>
 
-    <!-- CERTIFICATES (Cisco-style) -->
- <section class="page-section reveal" data-reveal id="certificates" aria-labelledby="certHeading">
-  <h2 id="certHeading">Certificates & Training</h2>
-  <p style="color:var(--muted);margin-top:6px">Official network certifications and training highlights.</p>
-  
-  <div class="cert-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:18px">
-    
-    <!-- Cisco Embedded Certificate 1 -->
-    <article class="cert-card">
-      <div style="display:flex;align-items:center;gap:12px">
-        <div class="cert-logo" aria-hidden="true"><i class="fa-solid fa-network-wired"></i></div>
-        <div>
-          <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="01b9cfc3-123f-42dc-ba71-2a466a66c4cc" data-share-badge-host="https://www.credly.com"></div>
+    <section class="page-section reveal" data-reveal id="certificates" aria-labelledby="certHeading">
+      <h1 id="certHeading" class="audiowide-font">Certificates</h1>
+      <p style="color: var(--muted); margin-top: 6px">Official network certifications and training highlights.</p>
+
+      <div class="cert-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 18px">
+        <article class="cert-card">
+          <div style="display: flex; align-items: center; gap: 12px">
+            <div class="cert-logo" aria-hidden="true"><i class="fa-solid fa-network-wired"></i></div>
+            <div>
+              <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="01b9cfc3-123f-42dc-ba71-2a466a66c4cc" data-share-badge-host="https://www.credly.com"></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="cert-card">
+          <div style="display: flex; align-items: center; gap: 12px">
+            <div class="cert-logo" aria-hidden="true"><i class="fa-solid fa-network-wired"></i></div>
+            <div>
+              <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="d450ca29-f7d3-40dd-92f2-c467691c3c6d" data-share-badge-host="https://www.credly.com"></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="cert-card">
+          <div style="display: flex; align-items: center; gap: 12px">
+            <div class="cert-logo" aria-hidden="true"><i class="fa-solid fa-network-wired"></i></div>
+            <div>
+              <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="775d2c37-657a-49d6-8850-6f8b33e66109" data-share-badge-host="https://www.credly.com"></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="cert-card">
+          <div style="display: flex; align-items: center; gap: 12px">
+            <div class="cert-logo" aria-hidden="true"><i class="fa-solid fa-network-wired"></i></div>
+            <div>
+              <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="43ebc748-efee-485b-8382-f24814e0073d" data-share-badge-host="https://www.credly.com"></div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
+    </section>
+
+    <section class="page-section reveal" data-reveal id="projects" aria-labelledby="projectsHeading">
+      <h1 id="projectsHeading" class="audiowide-font">Projects</h1>
+      <p style="color: var(--muted)">Interactive, network-focused tools and apps. Click any item to view source.</p>
+
+      <div class="project-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 18px; align-items: start">
+        <div class="project">
+          <article class="project-card interactive-card">
+            <div class="project-thumb">
+              <img src="https://cdn.dribbble.com/userupload/19431148/file/original-a3bbbdce887dea6702152c7c6afae912.jpg?resize=1200x926&vertical=center" alt="Portfolio" loading="lazy" />
+            </div>
+            <h3 class="project-title">Portfolio</h3>
+            <p style="color: var(--muted)">User interactive personal web page.</p>
+            <div class="stack-row">
+              <div class="stack-pill"><i class="fa-brands fa-js"></i> JS</div>
+              <div class="stack-pill"><i class="fa-brands fa-html5"></i> HTML</div>
+              <div class="stack-pill"><i class="fa-brands fa-css3-alt"></i> CSS</div>
+            </div>
+            <div style="margin-top: 12px; display: flex; gap: 8px">
+              <a href="https://github.com/Yasasisuru/portfolio" class="btn" target="_blank" rel="noopener"> View Repo <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.9rem"></i> </a>
+            </div>
+          </article>
+        </div>
+
+        <div class="project">
+          <article class="project-card interactive-card">
+            <div class="project-thumb">
+              <img src="https://www.learncisco.net/wp-content/themes/learncisco/assets/images/icnd2/017-vlan-to-vlan-routing.jpg" alt="Inter VLAN Routing" loading="lazy" />
+            </div>
+            <h3 class="project-title">Inter-VLAN Routing with EtherChannel</h3>
+            <p style="color: var(--muted)">Network lab implementation of VLAN routing with EtherChannel aggregation.</p>
+            <div class="stack-row">
+              <div class="stack-pill"><i class="fa-solid fa-network-wired"></i> Networking</div>
+              <div class="stack-pill"><i class="fa-solid fa-network-wired"></i> Packet Tracer</div>
+            </div>
+            <div style="margin-top: 12px; display: flex; gap: 8px">
+              <a href="https://github.com/Yasasisuru/Inter-VLAN-Routing-with-Etherchannel" class="btn" target="_blank" rel="noopener">View Repo</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="project">
+          <article class="project-card interactive-card">
+            <div class="project-thumb">
+              <img src="https://texascoffeeschool.com/wp-content/uploads/2021/10/DSC_0052-scaled.jpg" alt="Coffee Shop App" loading="lazy" />
+            </div>
+            <h3 class="project-title">Coffee Shop App</h3>
+            <p style="color: var(--muted)">Frontend web app for coffee shop management and orders.</p>
+            <div class="stack-row">
+              <div class="stack-pill"><i class="fa-brands fa-html5"></i> HTML</div>
+              <div class="stack-pill"><i class="fa-brands fa-css3-alt"></i> CSS</div>
+              <div class="stack-pill"><i class="fa-brands fa-js"></i> JS</div>
+            </div>
+            <div style="margin-top: 12px; display: flex; gap: 8px">
+              <a href="https://github.com/Yasasisuru/coffee-shop" class="btn" target="_blank" rel="noopener">View Repo</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="project">
+          <article class="project-card interactive-card">
+            <div class="project-thumb">
+              <img src="https://www.lifewire.com/thmb/L8kcijzlE3c8tFhVQht5kg7VZQA=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/GettyImages-1410151882-384801eec629499ea051dd681cab0511.jpg" alt="ToDo App" loading="lazy" />
+            </div>
+            <h3 class="project-title">ToDo App</h3>
+            <p style="color: var(--muted)">Task management app with persistent storage and dynamic UI.</p>
+            <div class="stack-row">
+              <div class="stack-pill"><i class="fa-brands fa-python"></i> Python</div>
+            </div>
+            <div style="margin-top: 12px; display: flex; gap: 8px">
+              <a href="https://github.com/Yasasisuru/ToDoApp" class="btn" target="_blank" rel="noopener">View Repo</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="project">
+          <article class="project-card interactive-card">
+            <div class="project-thumb">
+              <img src="https://realpython.com/cdn-cgi/image/width=640,format=auto/https://files.realpython.com/media/Python-GUI-Programming-With-Tkinter_Watermarked.9e1a9c9070e4.jpg" alt="Python GUI" loading="lazy" />
+            </div>
+            <h3 class="project-title">Python GUI Tools</h3>
+            <p style="color: var(--muted)">Collection of Python GUI applications using Tkinter.</p>
+            <div class="stack-row">
+              <div class="stack-pill"><i class="fa-brands fa-python"></i> Python</div>
+              <div class="stack-pill"><i class="fa-solid fa-window-maximize"></i> GUI</div>
+            </div>
+            <div style="margin-top: 12px; display: flex; gap: 8px">
+              <a href="https://github.com/Yasasisuru/Python-GUI" class="btn" target="_blank" rel="noopener">View Repo</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="project">
+          <article class="project-card interactive-card">
+            <div class="project-thumb">
+              <img src="https://www.heymarket.com/wp-content/uploads/2023/06/Keyword-based-text-automation-1024x651.png" alt="Auto Message" loading="lazy" />
+            </div>
+            <h3 class="project-title">Auto Message Sender</h3>
+            <p style="color: var(--muted)">Automates sending messages using Python scripts and APIs.</p>
+            <div class="stack-row">
+              <div class="stack-pill"><i class="fa-brands fa-python"></i> Python</div>
+            </div>
+            <div style="margin-top: 12px; display: flex; gap: 8px">
+              <a href="https://github.com/Yasasisuru/auto_message" class="btn" target="_blank" rel="noopener">View Repo</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="project">
+          <article class="project-card interactive-card">
+            <div class="project-thumb">
+              <img src="https://code-projects.org/wp-content/uploads/2022/08/srd-1024x563.png" alt="Student CRUD" loading="lazy" />
+            </div>
+            <h3 class="project-title">Student CRUD App</h3>
+            <p style="color: var(--muted)">Simple CRUD application for student records using Python and SQLite.</p>
+            <div class="stack-row">
+              <div class="stack-pill"><i class="fa-brands fa-python"></i> Python</div>
+            </div>
+            <div style="margin-top: 12px; display: flex; gap: 8px">
+              <a href="https://github.com/Yasasisuru/Student_CRUD" class="btn" target="_blank" rel="noopener">View Repo</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="project">
+          <article class="project-card interactive-card">
+            <div class="project-thumb">
+              <img src="https://s3-alpha.figma.com/hub/file/936981378/40fd9ce4-a7a2-468d-b87c-1dabb77298e2-cover.png" alt="Netflix Clone" loading="lazy" />
+            </div>
+            <h3 class="project-title">Netflix Clone</h3>
+            <p style="color: var(--muted)">A streaming platform clone with React, Firebase, and movie API integration.</p>
+            <div class="stack-row">
+              <div class="stack-pill"><i class="fa-brands fa-react"></i> React</div>
+            </div>
+            <div style="margin-top: 12px; display: flex; gap: 8px">
+              <a href="https://github.com/Yasasisuru/Netflix_Clone" class="btn" target="_blank" rel="noopener">View Repo</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="project">
+          <article class="project-card interactive-card">
+            <div class="project-thumb">
+              <img src="https://www.vestas-aircoil.com/application/files/1116/3295/1064/Marine_vessel.jpg" alt="MarinerHub Holdings" loading="lazy" />
+            </div>
+            <h3 class="project-title">MarinerHub Holdings</h3>
+            <p style="color: var(--muted)">Business portfolio website with React, responsive UI, and content management.</p>
+            <div class="stack-row">
+              <div class="stack-pill"><i class="fa-brands fa-php"></i> PHP</div>
+            </div>
+            <div style="margin-top: 12px; display: flex; gap: 8px">
+              <a href="https://github.com/Yasasisuru/MarinerHub_Holdings" class="btn" target="_blank" rel="noopener">View Repo</a>
+            </div>
+          </article>
         </div>
       </div>
-    </article>
+    </section>
 
-    <!-- Cisco Embedded Certificate 2 -->
-    <article class="cert-card">
-      <div style="display:flex;align-items:center;gap:12px">
-        <div class="cert-logo" aria-hidden="true"><i class="fa-solid fa-network-wired"></i></div>
-        <div>
-          <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="d450ca29-f7d3-40dd-92f2-c467691c3c6d" data-share-badge-host="https://www.credly.com"></div>
-        </div>
-      </div>
-    </article>
+    <section class="page-section reveal" data-reveal id="contact" aria-labelledby="contactHeading" style="text-align: center; padding: 80px 20px; background: #0f0f0f">
+      <h2 id="contactHeading" class="audiowide-font" style="font-size: 2.5rem; margin-bottom: 10px">Contact Me</h2>
+      <p style="color: var(--muted); margin-bottom: 40px">Let’s collaborate! Send me a message or connect on social media.</p>
 
-    <!-- Cisco Embedded Certificate 3 -->
-    <article class="cert-card">
-      <div style="display:flex;align-items:center;gap:12px">
-        <div class="cert-logo" aria-hidden="true"><i class="fa-solid fa-network-wired"></i></div>
-        <div>
-          <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="775d2c37-657a-49d6-8850-6f8b33e66109" data-share-badge-host="https://www.credly.com"></div>
-        </div>
-      </div>
-    </article>
+      <form id="contactForm" action="https://api.web3forms.com/submit" method="POST" aria-label="Contact form" style="max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px">
+        <input type="hidden" name="access_key" value="ac04f87c-3523-4899-8ec6-a3e1764b38ed" />
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+        <input type="checkbox" name="botcheck" class="hidden" style="display: none" />
 
-    <!-- Cisco Embedded Certificate 4 -->
-    <article class="cert-card">
-      <div style="display:flex;align-items:center;gap:12px">
-        <div class="cert-logo" aria-hidden="true"><i class="fa-solid fa-network-wired"></i></div>
-        <div>
-          <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="43ebc748-efee-485b-8382-f24814e0073d" data-share-badge-host="https://www.credly.com"></div>
-        </div>
-      </div>
-    </article>
+        <button type="submit" class="btn animated-btn" aria-label="Send Message">
+          <i class="fa-solid fa-paper-plane"></i> Send Message
+        </button>
+      </form>
 
-   
+     
+    </section>
 
-  </div>
+    <footer style=" color: rgba(255, 255, 255, 0.918); text-align: center; padding: 20px 10px; font-size: 0.9rem">
+      &copy; 2025 Yasasisuru. All rights reserved.
+    </footer>
 
-  <!-- Credly Embed Script -->
-  <script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
-</section>
-
-
-
-
-
-
-
-<!-- PROJECTS: grid & stack animations -->
-<section class="page-section reveal" data-reveal id="projects" aria-labelledby="projectsHeading">
-  <h2 id="projectsHeading">Projects — Selected</h2>
-  <p style="color:var(--muted)">Interactive, network-focused tools and apps. Click any item to view source.</p>
-
-  <div class="project-grid" style="
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-      gap:20px;
-      margin-top:18px;
-      align-items:start;
-  ">
-    
-    <!-- Loop for 9 projects -->
-    <!-- Project 1 -->
-    <div class="project">
-      <article class="project-card interactive-card">
-        <div class="project-thumb">
-          <img src="https://cdn.dribbble.com/userupload/19431148/file/original-a3bbbdce887dea6702152c7c6afae912.jpg?resize=1200x926&vertical=center" alt="Portfolio" loading="lazy">
-        </div>
-        <h3 class="project-title">Portfolio</h3>
-        <p style="color:var(--muted)">User interactive personal web page.</p>
-        <div class="stack-row">
-          <div class="stack-pill"><i class="fa-brands fa-js"></i> JS</div>
-          <div class="stack-pill"><i class="fa-brands fa-html5"></i> HTML</div>
-          <div class="stack-pill"><i class="fa-brands fa-css3-alt"></i> CSS</div>
-        </div>
-        <div style="margin-top:12px;display:flex;gap:8px">
-          <a href="https://github.com/Yasasisuru/portfolio" class="btn" target="_blank" rel="noopener">
-            View Repo <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.9rem"></i>
-          </a>
-        </div>
-      </article>
-    </div>
-
-    <!-- Project 2 -->
-    <div class="project">
-      <article class="project-card interactive-card">
-        <div class="project-thumb">
-          <img src="https://www.learncisco.net/wp-content/themes/learncisco/assets/images/icnd2/017-vlan-to-vlan-routing.jpg" alt="Inter VLAN Routing" loading="lazy">
-        </div>
-        <h3 class="project-title">Inter-VLAN Routing with EtherChannel</h3>
-        <p style="color:var(--muted)">Network lab implementation of VLAN routing with EtherChannel aggregation.</p>
-        <div class="stack-row">
-          <div class="stack-pill"><i class="fa-solid fa-network-wired"></i> Networking</div>
-          <div class="stack-pill"><i class="fa-brands fa-python"></i> Packet Tracer</div>
-        </div>
-        <div style="margin-top:12px;display:flex;gap:8px">
-          <a href="https://github.com/Yasasisuru/Inter-VLAN-Routing-with-Etherchannel" class="btn" target="_blank" rel="noopener">View Repo</a>
-        </div>
-      </article>
-    </div>
-
-    <!-- Project 3 -->
-    <div class="project">
-      <article class="project-card interactive-card">
-        <div class="project-thumb">
-          <img src="https://texascoffeeschool.com/wp-content/uploads/2021/10/DSC_0052-scaled.jpg" alt="Coffee Shop App" loading="lazy">
-        </div>
-        <h3 class="project-title">Coffee Shop App</h3>
-        <p style="color:var(--muted)">Frontend web app for coffee shop management and orders.</p>
-        <div class="stack-row">
-          <div class="stack-pill"><i class="fa-brands fa-html5"></i> HTML</div>
-          <div class="stack-pill"><i class="fa-brands fa-css3-alt"></i> CSS</div>
-          <div class="stack-pill"><i class="fa-brands fa-js"></i> JS</div>
-        </div>
-        <div style="margin-top:12px;display:flex;gap:8px">
-          <a href="https://github.com/Yasasisuru/coffee-shop" class="btn" target="_blank" rel="noopener">View Repo</a>
-        </div>
-      </article>
-    </div>
-
-    <!-- Project 4 -->
-    <div class="project">
-      <article class="project-card interactive-card">
-        <div class="project-thumb">
-          <img src="https://www.lifewire.com/thmb/L8kcijzlE3c8tFhVQht5kg7VZQA=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/GettyImages-1410151882-384801eec629499ea051dd681cab0511.jpg" alt="ToDo App" loading="lazy">
-        </div>
-        <h3 class="project-title">ToDo App</h3>
-        <p style="color:var(--muted)">Task management app with persistent storage and dynamic UI.</p>
-        <div class="stack-row">
-          <div class="stack-pill"><i class="fa-brands fa-js"></i> JS</div>
-        </div>
-        <div style="margin-top:12px;display:flex;gap:8px">
-          <a href="https://github.com/Yasasisuru/ToDoApp" class="btn" target="_blank" rel="noopener">View Repo</a>
-        </div>
-      </article>
-    </div>
-
-    <!-- Project 5 -->
-    <div class="project">
-      <article class="project-card interactive-card">
-        <div class="project-thumb">
-          <img src="https://realpython.com/cdn-cgi/image/width=640,format=auto/https://files.realpython.com/media/Python-GUI-Programming-With-Tkinter_Watermarked.9e1a9c9070e4.jpg" alt="Python GUI" loading="lazy">
-        </div>
-        <h3 class="project-title">Python GUI Tools</h3>
-        <p style="color:var(--muted)">Collection of Python GUI applications using Tkinter.</p>
-        <div class="stack-row">
-          <div class="stack-pill"><i class="fa-brands fa-python"></i> Python</div>
-          <div class="stack-pill"><i class="fa-solid fa-window-maximize"></i> GUI</div>
-        </div>
-        <div style="margin-top:12px;display:flex;gap:8px">
-          <a href="https://github.com/Yasasisuru/Python-GUI" class="btn" target="_blank" rel="noopener">View Repo</a>
-        </div>
-      </article>
-    </div>
-
-    <!-- Project 6 -->
-    <div class="project">
-      <article class="project-card interactive-card">
-        <div class="project-thumb">
-          <img src="https://www.heymarket.com/wp-content/uploads/2023/06/Keyword-based-text-automation-1024x651.png" alt="Auto Message" loading="lazy">
-        </div>
-        <h3 class="project-title">Auto Message Sender</h3>
-        <p style="color:var(--muted)">Automates sending messages using Python scripts and APIs.</p>
-        <div class="stack-row">
-          <div class="stack-pill"><i class="fa-brands fa-python"></i> Python</div>
-        </div>
-        <div style="margin-top:12px;display:flex;gap:8px">
-          <a href="https://github.com/Yasasisuru/auto_message" class="btn" target="_blank" rel="noopener">View Repo</a>
-        </div>
-      </article>
-    </div>
-
-    <!-- Project 7 -->
-    <div class="project">
-      <article class="project-card interactive-card">
-        <div class="project-thumb">
-          <img src="https://code-projects.org/wp-content/uploads/2022/08/srd-1024x563.png" alt="Student CRUD" loading="lazy">
-        </div>
-        <h3 class="project-title">Student CRUD App</h3>
-        <p style="color:var(--muted)">Simple CRUD application for student records using Python and SQLite.</p>
-        <div class="stack-row">
-          <div class="stack-pill"><i class="fa-brands fa-python"></i> Python</div>
-        </div>
-        <div style="margin-top:12px;display:flex;gap:8px">
-          <a href="https://github.com/Yasasisuru/Student_CRUD" class="btn" target="_blank" rel="noopener">View Repo</a>
-        </div>
-      </article>
-    </div>
-
-    <!-- Project 8 -->
-    <div class="project">
-      <article class="project-card interactive-card">
-        <div class="project-thumb">
-          <img src="https://s3-alpha.figma.com/hub/file/936981378/40fd9ce4-a7a2-468d-b87c-1dabb77298e2-cover.png" alt="Netflix Clone" loading="lazy">
-        </div>
-        <h3 class="project-title">Netflix Clone</h3>
-        <p style="color:var(--muted)">A streaming platform clone with React, Firebase, and movie API integration.</p>
-        <div class="stack-row">
-          <div class="stack-pill"><i class="fa-brands fa-react"></i> React</div>
-        </div>
-        <div style="margin-top:12px;display:flex;gap:8px">
-          <a href="https://github.com/Yasasisuru/Netflix_Clone" class="btn" target="_blank" rel="noopener">View Repo</a>
-        </div>
-      </article>
-    </div>
-
-    <!-- Project 9 -->
-    <div class="project">
-      <article class="project-card interactive-card">
-        <div class="project-thumb">
-          <img src="https://www.vestas-aircoil.com/application/files/1116/3295/1064/Marine_vessel.jpg" alt="MarinerHub Holdings" loading="lazy">
-        </div>
-        <h3 class="project-title">MarinerHub Holdings</h3>
-        <p style="color:var(--muted)">Business portfolio website with React, responsive UI, and content management.</p>
-        <div class="stack-row">
-          <div class="stack-pill"><i class="fa-brands fa-php"></i> PHP</div>
-        </div>
-        <div style="margin-top:12px;display:flex;gap:8px">
-          <a href="https://github.com/Yasasisuru/MarinerHub_Holdings" class="btn" target="_blank" rel="noopener">View Repo</a>
-        </div>
-      </article>
-    </div>
-
-  </div>
-</section>
-
-
-
-
-
-
-
-
-
-<!-- CONTACT ME -->
-<section class="page-section reveal" data-reveal id="contact" aria-labelledby="contactHeading" style="text-align:center; padding:80px 20px; background: #0f0f0f;">
-  <h2 id="contactHeading" style="font-size:2.5rem; margin-bottom:10px;">Contact Me</h2>
-  <p style="color:var(--muted); margin-bottom:40px;">Let’s collaborate! Send me a message or connect on social media.</p>
-
-  <!-- Contact Form -->
-  <form id="contactForm" action="https://api.web3forms.com/submit" method="POST" aria-label="Contact form" style="max-width:600px; margin:0 auto; display:flex; flex-direction:column; gap:15px;">
-    <input type="hidden" name="access_key" value="ac04f87c-3523-4899-8ec6-a3e1764b38ed">
-    <input type="text" name="name" placeholder="Your Name" required />
-    <input type="email" name="email" placeholder="Your Email" required />
-    <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-    <input type="checkbox" name="botcheck" class="hidden" style="display:none;">
-
-    <button type="submit" class="btn animated-btn" aria-label="Send Message">
-      <i class="fa-solid fa-paper-plane"></i> Send Message
-    </button>
-  </form>
-
-  <!-- Social Links -->
-  <div style="margin-top:40px; display:flex; justify-content:center; gap:20px;">
-    <a href="https://github.com/Yasasisuru" target="_blank" style="color:white; font-size:1.5rem;"><i class="fa-brands fa-github"></i></a>
-    <a href="https://www.linkedin.com/in/Yasasisuru" target="_blank" style="color:white; font-size:1.5rem;"><i class="fa-brands fa-linkedin"></i></a>
-   
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer style="background:#0b0b0b; color:rgba(255,255,255,0.6); text-align:center; padding:20px 10px; font-size:0.9rem;">
-  &copy; 2025 Yasasisuru. All rights reserved.
-</footer>
-
-<style>
-/* Contact form styling */
-#contactForm input,
-#contactForm textarea {
-  width: 100%;
-  padding: 12px 15px;
-  border-radius: 6px;
-  border: 1px solid rgba(255,255,255,0.2);
-  background: rgba(255,255,255,0.05);
-  color: #fff;
-  font-size: 1rem;
-  transition: border-color 0.3s ease, background 0.3s ease;
-}
-#contactForm input::placeholder,
-#contactForm textarea::placeholder {
-  color: rgba(255,255,255,0.6);
-}
-#contactForm input:focus,
-#contactForm textarea:focus {
-  outline: none;
-  border-color: #1e90ff;
-  background: rgba(255,255,255,0.1);
-}
-
-/* Animated button */
-.animated-btn {
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-  background: #1e90ff;
-  color: #fff;
-  border: none;
-  padding: 12px 25px;
-  border-radius: 6px;
-  font-size: 1.1rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  animation: pulse 2s infinite;
-}
-.animated-btn i { transition: transform 0.3s ease; }
-.animated-btn:hover { background:#0099ff; }
-.animated-btn:active {
-  animation: none;
-  transform: scale(0.95);
-  box-shadow: 0 0 8px 2px rgba(30,144,255,0.5);
-}
-
-/* Pulse animation */
-@keyframes pulse {
-  0%,100% { box-shadow:0 0 0 0 rgba(30,144,255,0.3); transform:scale(1);}
-  50% { box-shadow:0 0 15px 5px rgba(30,144,255,0.3); transform:scale(1.03);}
-}
-
-/* Footer links hover */
-footer a { color: rgba(255,255,255,0.6); transition: color 0.3s ease; }
-footer a:hover { color: #1e90ff; }
-</style>
-
-<script>
-  // Web3Forms submit with alert
-  document.getElementById('contactForm').addEventListener('submit', function(e){
-    e.preventDefault();
-    const form = e.target;
-    fetch(form.action, {
-      method: form.method,
-      body: new FormData(form),
-    })
-    .then(res => res.json())
-    .then(data => {
-      alert('Message sent successfully! 🎉');
-      form.reset();
-    })
-    .catch(err => alert('Failed to send message. Please try again.'));
-  });
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
+    <script>
+      // Web3Forms submit with alert
+      document.getElementById("contactForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const form = e.target;
+        fetch(form.action, {
+          method: form.method,
+          body: new FormData(form),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            alert("Message sent successfully! 🎉");
+            form.reset();
+          })
+          .catch((err) => alert("Failed to send message. Please try again."));
+      });
+    </script>
   </main>
 
-  <!-- Floating social buttons bottom-left (visible, accessible) -->
   <nav class="social-fixed" aria-label="Social links">
     <a class="social-btn" href="https://github.com/Yasasisuru" target="_blank" rel="noopener noreferrer" aria-label="GitHub Repository">
       <i class="fa-brands fa-github"></i>
     </a>
-    <a class="social-btn" href="https://linkedin.com/in/YOUR-LINKEDIN" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile">
+    <a class="social-btn" href="https://www.linkedin.com/in/yasas-isuru/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile">
       <i class="fa-brands fa-linkedin-in"></i>
     </a>
   </nav>
 
-  <!-- --------------------- Scripts --------------------- -->
   <script>
     /*******************************
      * Utility: reveal on scroll
      *******************************/
-    (function(){
-      const revealEls = document.querySelectorAll('[data-reveal]');
-      const obs = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            e.target.classList.add('visible');
-            e.target.classList.remove('reveal');
-            obs.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.08 });
-      revealEls.forEach(el => {
-        el.classList.add('reveal');
+    (function () {
+      const revealEls = document.querySelectorAll("[data-reveal]");
+      const obs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("visible");
+              e.target.classList.remove("reveal");
+              obs.unobserve(e.target);
+            }
+          });
+        }, {
+          threshold: 0.08
+        }
+      );
+      revealEls.forEach((el) => {
+        el.classList.add("reveal");
         obs.observe(el);
       });
     })();
@@ -733,267 +988,167 @@ footer a:hover { color: #1e90ff; }
     /*******************************
      * Typed.js initialization
      *******************************/
-    document.addEventListener('DOMContentLoaded', () => {
-      // Ensure typed library is loaded
-      if (window.Typed) {
-        const typedEl = document.querySelector('.typed-text');
-        // Provided stack: Network Engineer, Network Administrator, System Engineer, Frontend Developer
-        new Typed(typedEl, {
-          strings: ["Network Engineer","IT Support", "Network Administrator", "System Engineer", "Frontend Developer"],
-          typeSpeed: 50,
-          backSpeed: 30,
-          backDelay: 1400,
-          smartBackspace: true,
-          loop: true,
-          showCursor: true,
-          cursorChar: '|'
-        });
+    document.addEventListener("DOMContentLoaded", () => {
+      new Typed(".typed-text", {
+        strings: ["Network Engineer", "IT Support", "Frontend Developer", "Python Programmer"],
+        typeSpeed: 50,
+        backSpeed: 30,
+        loop: true,
+        showCursor: true,
+        cursorChar: "▌",
+      });
+    });
+
+    /*******************************
+     * Preloader
+     *******************************/
+    window.addEventListener("load", () => {
+      const preloader = document.getElementById("preloader");
+      if (preloader) {
+        preloader.classList.add("hide");
+        setTimeout(() => {
+          preloader.style.display = "none";
+        }, 500);
       }
     });
 
     /*******************************
-     * Interactive tilt for project cards
+     * Background animations (CSS & JS)
      *******************************/
-    (function(){
-      const cards = document.querySelectorAll('.interactive-card');
-      cards.forEach(card => {
-        card.addEventListener('mousemove', e => {
-          const r = card.getBoundingClientRect();
-          const px = (e.clientX - r.left) / r.width;
-          const py = (e.clientY - r.top) / r.height;
-          const rotateY = (px - 0.5) * 10; // left/right tilt
-          const rotateX = (0.5 - py) * 8;  // up/down tilt
-          card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.01)`;
-        });
-        card.addEventListener('mouseleave', () => {
-          card.style.transform = '';
-        });
-        card.addEventListener('mousedown', () => {
-          card.style.transform += ' translateZ(-6px)';
-        });
-        card.addEventListener('mouseup', () => {
-          card.style.transform = '';
-        });
-      });
-    })();
+    function createStars() {
+      const container = document.getElementById("bg-decor");
+      if (!container) return;
 
-    /*******************************
-     * CSS background stars + comets generator
-     * creates many subtle drifting stars (opacity 60%) and periodic comets
-     *******************************/
-    (function(){
-      const decor = document.getElementById('bg-decor');
-      if (!decor) return;
-
-      const w = window.innerWidth;
-      const h = window.innerHeight;
-
-      // adaptive star count (keeps performance in mind)
-      const starCount = Math.min(600, Math.max(80, Math.floor((w * h) / 16000)));
-
+      const starCount = 100;
       for (let i = 0; i < starCount; i++) {
-        const s = document.createElement('div');
-        s.className = 'bg-star';
-        const size = (Math.random() * 2.5) + 0.6; // px
-        const left = Math.random() * 100;
-        const top = Math.random() * 100;
-
-        // random drift offsets (use vw/vh for cross-device motion)
-        const moveX = ((Math.random() * 2 - 1) * (10 + Math.random() * 40)) + 'vw';
-        const moveY = ((Math.random() * 2 - 1) * (6 + Math.random() * 30)) + 'vh';
-        const duration = 20 + Math.random() * 90; // seconds
-        const delay = Math.random() * -duration; // start at random phase
-
-        s.style.left = left + '%';
-        s.style.top = top + '%';
-        s.style.width = size + 'px';
-        s.style.height = size + 'px';
-        s.style.opacity = 'var(--star-opacity)';
-        s.style.setProperty('--moveX', moveX);
-        s.style.setProperty('--moveY', moveY);
-        s.style.animationDuration = `${duration}s, ${6 + Math.random()*10}s`; // drift + twinkle
-        s.style.animationDelay = `${delay}s, ${Math.random()*-10}s`;
-        decor.appendChild(s);
+        const star = document.createElement("div");
+        star.classList.add("bg-star");
+        const size = Math.random() * 2;
+        star.style.width = `${size}px`;
+        star.style.height = `${size}px`;
+        star.style.left = `${Math.random() * 100}vw`;
+        star.style.top = `${Math.random() * 100}vh`;
+        star.style.animationDuration = `${Math.random() * 20 + 10}s`;
+        star.style.setProperty("--moveX", `${Math.random() * 50 - 25}px`);
+        star.style.setProperty("--moveY", `${Math.random() * 50 - 25}px`);
+        star.style.animationDelay = `${Math.random() * 10}s`;
+        container.appendChild(star);
       }
 
-      // Create periodic CSS comets (longer streaks that fly across)
-      const cometTotal = 6;
-      for (let i = 0; i < cometTotal; i++) {
-        createCssComet();
+      const cometCount = 3;
+      for (let i = 0; i < cometCount; i++) {
+        const comet = document.createElement("div");
+        comet.classList.add("css-comet");
+        const size = Math.random() * 1.5 + 0.5;
+        comet.style.width = `${size}px`;
+        comet.style.height = `${size}px`;
+        comet.style.setProperty("--sx", `${Math.random() * 100 - 10}vw`);
+        comet.style.setProperty("--sy", `${Math.random() * 100}vh`);
+        comet.style.setProperty("--ex", `${Math.random() * 100 + 10}vw`);
+        comet.style.setProperty("--ey", `${Math.random() * 100 + 10}vh`);
+        comet.style.setProperty("--angle", `${Math.random() * 360}deg`);
+        comet.style.animationName = "cssCometFly";
+        comet.style.animationDuration = `${Math.random() * 15 + 10}s`;
+        comet.style.animationDelay = `${Math.random() * 15}s`;
+        comet.style.animationIterationCount = "infinite";
+        comet.style.animationTimingFunction = "linear";
+        container.appendChild(comet);
       }
-
-      // spawn extra comets intermittently
-      setInterval(() => {
-        if (Math.random() < 0.6) createCssComet();
-      }, 3000);
-
-      function createCssComet() {
-        const c = document.createElement('div');
-        c.className = 'css-comet';
-        const startX = Math.random() * 120 - 10; // -10% .. 110% (vw)
-        const startY = Math.random() * 120 - 10; // -10% .. 110% (vh)
-        // end positions: move across screen
-        const endX = (Math.random() * 140 - 70) + 'vw';
-        const endY = (Math.random() * 120 - 60) + 'vh';
-        const angle = (Math.random() * 60 - 30) + 'deg';
-        const dur = 3 + Math.random() * 4; // seconds
-
-        // tail length scaled by width so it appears like a streak
-        const tail = 18 + Math.random() * 48; // px
-        c.style.width = tail + 'px';
-        c.style.height = (2 + Math.random() * 2) + 'px';
-
-        // set CSS variables used inside animation
-        c.style.setProperty('--sx', startX + 'vw');
-        c.style.setProperty('--sy', startY + 'vh');
-        c.style.setProperty('--ex', endX);
-        c.style.setProperty('--ey', endY);
-        c.style.setProperty('--angle', angle);
-        c.style.left = '0'; c.style.top = '0';
-        c.style.opacity = 0;
-        c.style.animation = `cssCometFly ${dur}s linear forwards`;
-        decor.appendChild(c);
-
-        // remove after animation finishes to avoid DOM bloat
-        setTimeout(()=> {
-          if (c && c.parentNode) c.parentNode.removeChild(c);
-        }, (dur + 0.1) * 1000);
-      }
-
-      // keep elements responsive on resize (optional)
-      window.addEventListener('resize', () => {
-        // you could tune behavior here (not removing to keep simple)
-      });
-    })();
+    }
+    createStars();
 
     /*******************************
-     * Three.js: starfield, comet, and satellite group
-     * pointer tracking rotates the satellite
+     * 3D Scene with Three.js (stars and satellite)
      *******************************/
-    document.addEventListener('DOMContentLoaded', () => {
-      // Guard if three.js isn't available
-      if (!window.THREE) return;
-      const overlay = document.getElementById('three-overlay');
-      const w = window.innerWidth;
-      const h = window.innerHeight;
-      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-      renderer.setPixelRatio(window.devicePixelRatio || 1);
-      renderer.setSize(w, h);
-      renderer.domElement.style.width = '100%';
-      renderer.domElement.style.height = '100%';
+    let scene, camera, renderer, starfield, comet, satellite;
+    const overlay = document.getElementById("three-overlay");
+    if (overlay && typeof THREE !== "undefined") {
+      init();
+      animate();
+    }
+
+    function init() {
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: true
+      });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(window.devicePixelRatio);
       overlay.appendChild(renderer.domElement);
 
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(55, w / h, 0.1, 2000);
-      camera.position.set(0, 0, 300);
-
-      // Starfield (Points)
-      const starCount = Math.min(1600, Math.floor((w*h)/300)); // adaptive count
-      const starsGeo = new THREE.BufferGeometry();
-      const positions = new Float32Array(starCount * 3);
+      // Starfield
+      const starGeometry = new THREE.BufferGeometry();
+      const starVertices = [];
+      const starCount = 5000;
       for (let i = 0; i < starCount; i++) {
-        const r = 800 + Math.random() * 600;
-        const theta = Math.random() * Math.PI * 2;
-        const phi = Math.acos((Math.random() * 2) - 1);
-        positions[i*3] = r * Math.sin(phi) * Math.cos(theta);
-        positions[i*3+1] = r * Math.sin(phi) * Math.sin(theta);
-        positions[i*3+2] = r * Math.cos(phi);
+        const x = (Math.random() - 0.5) * 2000;
+        const y = (Math.random() - 0.5) * 2000;
+        const z = (Math.random() - 0.5) * 2000;
+        starVertices.push(x, y, z);
       }
-      starsGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-      const starMat = new THREE.PointsMaterial({ size: 1.6, transparent: true, opacity: 0.6, color: 0xffffff });
-      const starPoints = new THREE.Points(starsGeo, starMat);
-      scene.add(starPoints);
+      starGeometry.setAttribute("position", new THREE.Float32BufferAttribute(starVertices, 3));
+      const starMaterial = new THREE.PointsMaterial({
+        color: 0xffffff,
+        size: 0.8,
+        transparent: true,
+        opacity: 0.6
+      });
+      starfield = new THREE.Points(starGeometry, starMaterial);
+      scene.add(starfield);
 
-      // subtle rotating satellite object (composed geometry)
-      const satellite = new THREE.Group();
-      // core (box)
-      const boxGeom = new THREE.BoxGeometry(30, 18, 10);
-      const boxMat = new THREE.MeshStandardMaterial({ color: 0xb6f0ff, emissive: 0x0b3240, metalness: 0.55, roughness: 0.3 });
-      const core = new THREE.Mesh(boxGeom, boxMat);
-      satellite.add(core);
-      // antenna bars
-      const barGeom = new THREE.BoxGeometry(2, 40, 2);
-      const barMat = new THREE.MeshStandardMaterial({ color: 0x9be3ff, metalness: 0.3, roughness: 0.4 });
-      const bar1 = new THREE.Mesh(barGeom, barMat); bar1.position.set(22, 0, 0); bar1.rotation.z = 0.2;
-      const bar2 = bar1.clone(); bar2.position.set(-22, 0, 0); bar2.rotation.z = -0.2;
-      satellite.add(bar1, bar2);
-
-      // solar panel-ish planes
-      const panelGeom = new THREE.PlaneGeometry(60, 22);
-      const panelMat = new THREE.MeshStandardMaterial({ color: 0x0a2a3b, side: THREE.DoubleSide, emissive: 0x002033, metalness:0.2, roughness:0.9 });
-      const p1 = new THREE.Mesh(panelGeom, panelMat); p1.position.set(0, -20, -6); p1.rotation.x = -0.2;
-      const p2 = p1.clone(); p2.position.set(0, -20, 6); p2.rotation.x = 0.2;
-      satellite.add(p1, p2);
-
-      satellite.position.set(120, -80, -50); // place near top-right corner visually
+      // Satellite placeholder (a simple shape)
+      const satGeo = new THREE.BoxGeometry(4, 2, 2);
+      const satMat = new THREE.MeshStandardMaterial({
+        color: 0x8c8c8c,
+        emissive: 0x333333,
+        roughness: 0.5,
+        metalness: 0.9
+      });
+      satellite = new THREE.Mesh(satGeo, satMat);
       scene.add(satellite);
+      satellite.position.set(0, 0, -20);
 
-      // subtle ambient + point light
-      const amb = new THREE.AmbientLight(0xffffff, 0.15);
-      scene.add(amb);
-      const point = new THREE.PointLight(0xa9f5ff, 0.9, 800);
-      point.position.set(100, 100, 200);
-      scene.add(point);
+      // Lighting
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+      scene.add(ambientLight);
+      const pointLight = new THREE.PointLight(0xffffff, 1.2, 100);
+      pointLight.position.set(10, 10, 10);
+      scene.add(pointLight);
 
-      // comet (a small bright moving point with trail using sprite)
-      const cometGeo = new THREE.SphereGeometry(1.8, 8, 8);
-      const cometMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
-      const comet = new THREE.Mesh(cometGeo, cometMat);
-      scene.add(comet);
-      let cometProgress = 0;
+      camera.position.z = 50;
 
-      // pointer tracking for satellite rotation (parallax)
-      let mouseX = 0, mouseY = 0;
-      window.addEventListener('mousemove', (e) => {
-        const nx = (e.clientX / window.innerWidth) * 2 - 1;
-        const ny = (e.clientY / window.innerHeight) * 2 - 1;
-        mouseX = nx; mouseY = ny;
-      });
+      window.addEventListener("resize", onWindowResize, false);
+    }
 
-      // responsiveness
-      window.addEventListener('resize', () => {
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-      });
+    function onWindowResize() {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    }
 
-      // animation loop
-      const clock = new THREE.Clock();
-      function animate(){
-        requestAnimationFrame(animate);
-        const t = clock.getElapsedTime();
+    function animate() {
+      requestAnimationFrame(animate);
+      const time = Date.now() * 0.0001;
 
-        // rotate starfield slowly
-        starPoints.rotation.y += 0.0005;
-
-        // rotate satellite using pointer (interpolated)
-        satellite.rotation.x += (mouseY * 0.6 - satellite.rotation.x) * 0.04;
-        satellite.rotation.y += (mouseX * 0.6 - satellite.rotation.y) * 0.04;
-        satellite.rotation.z = Math.sin(t*0.6) * 0.06;
-
-        // comet movement (cyclical)
-        cometProgress += 0.0045;
-        const cx = Math.cos(cometProgress*2.1) * 1200;
-        const cy = Math.sin(cometProgress*1.2) * 400;
-        const cz = Math.sin(cometProgress*0.7) * 400 - 200;
-        comet.position.set(cx, cy, cz);
-        comet.material.opacity = Math.max(0, 1.0 - Math.abs(Math.sin(cometProgress*1.2))*0.9);
-
-        // subtle camera drift
-        camera.position.x += (mouseX*90 - camera.position.x) * 0.02;
-        camera.position.y += (-mouseY*60 - camera.position.y) * 0.02;
-
-        renderer.render(scene, camera);
+      // Rotate the starfield
+      if (starfield) {
+        starfield.rotation.y += 0.0005;
+        starfield.rotation.x += 0.0002;
       }
-      animate();
-    });
-  </script>
-  <script>
-  window.addEventListener('load', () => {
-    const preloader = document.getElementById('preloader');
-    preloader.classList.add('hide');
-  });
-</script>
 
+      // Animate the satellite
+      if (satellite) {
+        satellite.position.x = Math.sin(time * 0.8) * 40;
+        satellite.position.y = Math.cos(time * 0.6) * 30;
+        satellite.position.z = Math.cos(time * 0.9) * 25 - 40;
+        satellite.rotation.y = time * 0.5;
+        satellite.rotation.x = time * 0.3;
+      }
+
+      renderer.render(scene, camera);
+    }
+  </script>
 </body>
 </html>
